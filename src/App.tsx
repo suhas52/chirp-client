@@ -6,6 +6,8 @@ import { useState } from 'react'
 import './App.css'
 import { Link, Route, Routes } from 'react-router';
 import Home from './assets/components/home';
+import Login from './assets/components/login';
+import Register from './assets/components/register';
 
 
 
@@ -16,6 +18,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   )
