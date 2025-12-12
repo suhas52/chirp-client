@@ -14,10 +14,12 @@ export default function NewModal({ children, open, setOpen }: Props) {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 400,
+        height: 100,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        borderRadius: 1
     };
 
     const handleOpen = () => setOpen(true);
@@ -34,9 +36,9 @@ export default function NewModal({ children, open, setOpen }: Props) {
             >
                 <Box>
                     {children}
-                    <Button onClick={handleClose}>Close</Button>
+                    <Button sx={{ ml: 2 }} variant="contained" onClick={handleClose}>Close</Button>
                 </Box>
             </Modal>
-        </div>
+        </div >
     );
 }

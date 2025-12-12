@@ -1,6 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 
-export default function Home() {
+export default function LandingPage() {
     return <Container >
         <Typography variant="h1">Welcome to Chirp</Typography>
         <Container sx={{ display: "flex-column", margin: "50px", justifyContent: "center", alignItems: "center", }}>

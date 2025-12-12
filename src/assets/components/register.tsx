@@ -62,7 +62,7 @@ export default function Register() {
                 </FormControl>
             </form>
             <NewModal open={modalOpen} setOpen={modalSetOpen}>
-                <Typography>Successfully Registered!</Typography>
+                <Typography margin={2}>Successfully Registered!</Typography>
                 <Button href="/login">Login</Button>
             </NewModal>
         </Box>
