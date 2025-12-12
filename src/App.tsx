@@ -8,6 +8,8 @@ import { Link, Route, Routes } from 'react-router';
 import Home from './assets/components/home';
 import Login from './assets/components/login';
 import Register from './assets/components/register';
+import NewModal from './assets/components/modal';
+import { Typography } from '@mui/material';
 
 
 
