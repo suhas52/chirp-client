@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router';
 import Login from './assets/components/login';
 import Register from './assets/components/register';
 import LandingPage from './assets/components/landingPage';
+import Home from './assets/components/home';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </>
   )
