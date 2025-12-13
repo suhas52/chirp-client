@@ -1,15 +1,8 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+
 import './App.css'
-import { Route, Routes } from 'react-router';
-import Login from './assets/components/login';
-import Register from './assets/components/register';
-import LandingPage from './assets/components/landingPage';
-import Home from './assets/components/home';
-
-
+import { Route, Routes } from 'react-router'
+import Register from './components/registerPage'
+import Login from './components/loginPage'
 
 function App() {
 
@@ -17,10 +10,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </>
   )
