@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from 'axios'
+import { useNavigate } from "react-router"
 
 const loginSchema = z.object({
   username: z.string().min(3, "Username must have atleast 3 characters").max(12, "Username cannot exceed 12 letters"),
@@ -25,23 +26,28 @@ const loginSchema = z.object({
 })
 
 type LoginFormFields = z.infer<typeof loginSchema>
-
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
 
-
+  const navigate = useNavigate();
   const { handleSubmit, register, formState: { errors }, setError } = useForm<LoginFormFields>({
     resolver: zodResolver(loginSchema)
   })
 
   const onSubmit = async (loginData: LoginFormFields) => {
     try {
+      const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/auth/login`, loginData, {
+        withCredentials: true
+      })
+      navigate('/home')
 
-    } catch (error) {
-
+    } catch (error: any) {
+      console.log(error.response.data)
     }
   }
 

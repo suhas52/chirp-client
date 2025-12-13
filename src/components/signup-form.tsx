@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod'
+import z from 'zod';
+import { useNavigate } from "react-router";
 import {
   Field,
   FieldDescription,
@@ -11,6 +12,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import axios, { AxiosError } from "axios";
 
 const registerSchema = z.object({
   firstName: z.string().min(3).max(8),
@@ -24,20 +26,35 @@ const registerSchema = z.object({
 })
 
 type RegisterFieldsType = z.infer<typeof registerSchema>;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
+
+
+
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
 
+  const navigate = useNavigate();
 
-
-  const { register, handleSubmit, setError, formState: { errors } } = useForm<RegisterFieldsType>({
+  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegisterFieldsType>({
     resolver: zodResolver(registerSchema)
   });
 
+
   const onSubmit = async (registerData: RegisterFieldsType) => {
-    console.log(registerData)
+    try {
+      const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/auth/register`, registerData, {
+        withCredentials: true
+      })
+      navigate('/login')
+
+    } catch (error: any) {
+      const validationErrorData = error.response.data.data ?? undefined;
+      console.log(validationErrorData)
+    }
   }
 
   return (
@@ -52,44 +69,44 @@ export function SignupForm({
         <Field>
           <FieldLabel htmlFor="firstName">First Name</FieldLabel>
           <Input {...register("firstName")} type="text" placeholder="John" required />
-          <FieldDescription >
+          <FieldDescription className="text-red-700">
             {errors.firstName?.message}
           </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor="lastName">Last Name</FieldLabel>
           <Input {...register("lastName")} type="text" placeholder="John" required />
-          <FieldDescription >
+          <FieldDescription className="text-red-700">
             {errors.lastName?.message}
           </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor="username">Username</FieldLabel>
           <Input {...register("username")} type="text" placeholder="John" required />
-          <FieldDescription >
+          <FieldDescription className="text-red-700">
             {errors.username?.message}
           </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor="password">Password</FieldLabel>
           <Input {...register("password")} type="password" required />
-          <FieldDescription >
+          <FieldDescription className="text-red-700">
             {errors.password?.message}
           </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
           <Input {...register("confirmPassword")} type="password" required />
-          <FieldDescription >
+          <FieldDescription className="text-red-700">
             {errors.confirmPassword?.message}
           </FieldDescription>
         </Field>
         <Field>
-          <Button type="submit">Create Account</Button>
+          <Button type="submit">{isSubmitting ? "Registering" : "Submit"}</Button>
         </Field>
         <Field>
           <FieldDescription className="px-6 text-center">
-            Already have an account? <a href=".login">Log in</a>
+            Already have an account? <a href="/login">Log in</a>
           </FieldDescription>
         </Field>
       </FieldGroup>
