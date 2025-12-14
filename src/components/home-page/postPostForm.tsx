@@ -22,13 +22,14 @@ export default function PostForm() {
 
     const onSubmit = async (postData: PostType) => {
         try {
+
             const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/user/post`, postData, {
                 withCredentials: true
             })
             console.log(response.data)
             reset()
         } catch (error: any) {
-            console.log(error.response.data)
+            console.log(error.response)
         }
     }
 
