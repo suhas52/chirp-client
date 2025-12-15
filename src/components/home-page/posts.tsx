@@ -8,6 +8,7 @@ import { Spinner } from "../ui/spinner";
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react";
 import LikeRewteet from "./like-retweet";
+import PostComment from "./post-comments";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
@@ -77,7 +78,7 @@ export default function Posts() {
                     </ItemContent>
                     <ItemActions className="flex w-full justify-between">
                         <LikeRewteet post={post} />
-                        <Button>Comment</Button>
+                        <PostComment postId={post.id} />
                     </ItemActions>
                 </Item>
             ))

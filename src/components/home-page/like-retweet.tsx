@@ -6,7 +6,8 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     const { data } = useQuery({
         queryKey: ['user'],
-        queryFn: fetchUser
+        queryFn: fetchUser,
+        retry: false
     })
 
     const handleLikePress = async () => {

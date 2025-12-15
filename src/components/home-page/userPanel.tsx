@@ -9,7 +9,8 @@ export default function UserPanel() {
 
     const { data } = useQuery({
         queryKey: ['user'],
-        queryFn: fetchUser
+        queryFn: fetchUser,
+        retry: false
     })
 
     const navigate = useNavigate();
