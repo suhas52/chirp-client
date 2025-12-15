@@ -1,6 +1,6 @@
 import PostForm from "./postPostForm";
 import Posts from "./posts";
-import UserPanel from "./user";
+import UserPanel from "./userPanel";
 
 export default function Homepage() {
     return <div className="h-screen flex flex-col items-center ">
