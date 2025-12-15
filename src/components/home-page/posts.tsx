@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react";
 import LikeRewteet from "./like-retweet";
 import PostComment from "./post-comments";
+import fetchUser from "@/lib/getUserObject";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
@@ -33,7 +34,7 @@ export default function Posts() {
 
     const getPosts = async ({ pageParam }: { pageParam: number }) => {
         const encodedPageParam = btoa(String(pageParam));
-        const response = await axios.get(`${SERVER_URL}:${SERVER_PORT}/api/user/posts?take=10&cursor=${encodedPageParam}`)
+        const response = await axios.get(`${SERVER_URL}:${SERVER_PORT}/api/user/posts?take=10&cursor=${encodedPageParam}&userId=${user.data?.id}`)
         return response.data.data
     }
 
@@ -46,6 +47,12 @@ export default function Posts() {
 
             return lastPage.nextCursor
         }
+    })
+
+    const user = useQuery({
+        queryKey: ['user'],
+        queryFn: fetchUser,
+        retry: false
     })
 
     const { ref, inView } = useInView()
