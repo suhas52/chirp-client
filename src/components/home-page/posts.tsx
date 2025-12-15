@@ -46,7 +46,7 @@ export default function Posts() {
         getNextPageParam: (lastPage) => {
 
             return lastPage.nextCursor
-        }
+        },
     })
 
     const user = useQuery({
