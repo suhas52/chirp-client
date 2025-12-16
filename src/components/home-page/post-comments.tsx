@@ -12,7 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { Textarea } from "../ui/textarea"
-import axios from "axios"
 import { useState } from "react"
 import { api } from "@/lib/axiosApi"
 
@@ -32,9 +31,7 @@ export default function PostComment({ postId }: { postId: string }) {
 
     const onSubmit = async (commentData: CommentField) => {
         try {
-            const response = await api.post(`/user/comment/${postId}`, commentData, {
-                withCredentials: true
-            })
+            const response = await api.post(`/user/comment/${postId}`, commentData)
             console.log(response.data.data)
 
         } catch (err) {

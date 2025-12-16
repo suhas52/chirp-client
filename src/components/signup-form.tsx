@@ -12,7 +12,6 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import axios, { AxiosError } from "axios";
 import { api } from "@/lib/axiosApi";
 
 const registerSchema = z.object({
@@ -27,8 +26,7 @@ const registerSchema = z.object({
 })
 
 type RegisterFieldsType = z.infer<typeof registerSchema>;
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
+
 
 
 
@@ -47,9 +45,7 @@ export function SignupForm({
 
   const onSubmit = async (registerData: RegisterFieldsType) => {
     try {
-      const response = await api.post(`/auth/register`, registerData, {
-        withCredentials: true
-      })
+      const response = await api.post(`/auth/register`, registerData)
       navigate('/login')
 
     } catch (error: any) {

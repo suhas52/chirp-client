@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import axios from 'axios'
 import { useNavigate } from "react-router"
 import { api } from "@/lib/axiosApi"
 
@@ -27,8 +26,6 @@ const loginSchema = z.object({
 })
 
 type LoginFormFields = z.infer<typeof loginSchema>
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
 
 export function LoginForm({
   className,
@@ -42,9 +39,7 @@ export function LoginForm({
 
   const onSubmit = async (loginData: LoginFormFields) => {
     try {
-      const response = await api.post(`/auth/login`, loginData, {
-        withCredentials: true
-      })
+      const response = await api.post(`/auth/login`, loginData)
       navigate('/home')
 
     } catch (error: any) {

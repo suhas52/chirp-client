@@ -1,59 +1,110 @@
 import { api } from "@/lib/axiosApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import axios from "axios";
 
 export default function LikeRewteet({ post }: { post: any }) {
 
 
     const queryClient = useQueryClient()
 
+    type InteractionKey = 'likes' | 'retweets';
+
+    const updatePostInteractionCache = (
+        queryClient: any,
+        postId: string,
+        key: InteractionKey,
+        items: any[],
+        delta: number
+    ) => {
+        queryClient.setQueryData(['posts'], (oldData: any) => {
+            if (!oldData) return oldData;
+
+            return {
+                ...oldData,
+                pages: oldData.pages.map((page: any) => ({
+                    ...page,
+                    posts: page.posts.map((p: any) => {
+                        if (p.id !== postId) return p;
+
+                        return {
+                            ...p,
+                            [key]: items,
+                            _count: {
+                                ...p._count,
+                                [key]: Math.max(0, p._count[key] + delta),
+                            },
+                        };
+                    }),
+                })),
+            };
+        });
+    };
+
+
     const likeMutation = useMutation({
-        mutationFn: () =>
-            api.post(`/user/post/like/${post.id}`, {}, {
-                withCredentials: true
-            }),
+        mutationFn: () => api.post(`/user/post/like/${post.id}`, {}),
         onSuccess: (updatedPost) => {
-            queryClient.invalidateQueries({ queryKey: ['posts'] })
-            console.log(updatedPost)
+            updatePostInteractionCache(
+                queryClient,
+                post.id,
+                'likes',
+                [{ id: updatedPost.data.data.id }],
+                +1
+            );
         },
-        onError: (error) => console.log(error)
-    })
+    });
 
     const unLikeMutation = useMutation({
         mutationFn: () =>
-            api.delete(`/user/post/like/${post.likes[0].id}`, { withCredentials: true }),
+            api.delete(`/user/post/like/${post.likes[0].id}`),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['posts'] })
-        }
-    })
+            updatePostInteractionCache(
+                queryClient,
+                post.id,
+                'likes',
+                [],
+                -1
+            );
+        },
+    });
 
     const retweetMutate = useMutation({
         mutationFn: () =>
-            api.post(`/user/post/retweet/${post.id}`, {}, {
-                withCredentials: true
-            }),
+            api.post(`/user/post/retweet/${post.id}`, {}, { withCredentials: true }),
         onSuccess: (updatedPost) => {
-            queryClient.invalidateQueries({ queryKey: ['posts'] })
-            console.log(updatedPost)
+            updatePostInteractionCache(
+                queryClient,
+                post.id,
+                'retweets',
+                [{ id: updatedPost.data.data.id }],
+                +1
+            );
         },
-        onError: (error) => console.log(error)
-    })
+    });
 
     const unRetweetMutate = useMutation({
         mutationFn: () =>
-            api.delete(`/user/post/retweet/${post.retweets[0].id}`, { withCredentials: true }),
+            api.delete(`/user/post/retweet/${post.retweets[0].id}`, {
+                withCredentials: true,
+            }),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['posts'] })
-        }
-    })
-
+            updatePostInteractionCache(
+                queryClient,
+                post.id,
+                'retweets',
+                [],
+                -1
+            );
+        },
+    });
 
     const handleLikePress = async () => {
         try {
             if (post.likes.length === 0) {
+
                 likeMutation.mutate()
             }
             if (post.likes.length > 0) {
+
                 unLikeMutation.mutate()
             }
         } catch (err) {

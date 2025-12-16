@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from "../ui/item";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -37,22 +36,25 @@ export default function Posts() {
         return response.data.data
     }
 
+    const user = useQuery({
+        queryKey: ['user'],
+        queryFn: fetchUser,
+        retry: false
+    })
+
 
     const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['posts'],
         queryFn: getPosts,
         initialPageParam: 1,
+        enabled: user.isFetched,
         getNextPageParam: (lastPage) => {
 
             return lastPage.nextCursor
         },
     })
 
-    const user = useQuery({
-        queryKey: ['user'],
-        queryFn: fetchUser,
-        retry: false
-    })
+
 
     const { ref, inView } = useInView()
 

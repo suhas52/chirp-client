@@ -21,9 +21,7 @@ export default function PostForm() {
     const onSubmit = async (postData: PostType) => {
         try {
 
-            const response = await api.post("/user/post", postData, {
-                withCredentials: true
-            })
+            const response = await api.post("/user/post", postData)
             console.log(response.data)
             reset()
         } catch (error: any) {
