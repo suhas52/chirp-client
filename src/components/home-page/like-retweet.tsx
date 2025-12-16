@@ -1,8 +1,6 @@
+import { api } from "@/lib/axiosApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios";
-
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
 
 export default function LikeRewteet({ post }: { post: any }) {
 
@@ -11,7 +9,7 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     const likeMutation = useMutation({
         mutationFn: () =>
-            axios.post(`${SERVER_URL}:${SERVER_PORT}/api/user/post/like/${post.id}`, {}, {
+            api.post(`/user/post/like/${post.id}`, {}, {
                 withCredentials: true
             }),
         onSuccess: (updatedPost) => {
@@ -23,7 +21,7 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     const unLikeMutation = useMutation({
         mutationFn: () =>
-            axios.delete(`${SERVER_URL}:${SERVER_PORT}/api/user/post/like/${post.likes[0].id}`, { withCredentials: true }),
+            api.delete(`/user/post/like/${post.likes[0].id}`, { withCredentials: true }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] })
         }
@@ -31,7 +29,7 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     const retweetMutate = useMutation({
         mutationFn: () =>
-            axios.post(`${SERVER_URL}:${SERVER_PORT}/api/user/post/retweet/${post.id}`, {}, {
+            api.post(`/user/post/retweet/${post.id}`, {}, {
                 withCredentials: true
             }),
         onSuccess: (updatedPost) => {
@@ -43,7 +41,7 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     const unRetweetMutate = useMutation({
         mutationFn: () =>
-            axios.delete(`${SERVER_URL}:${SERVER_PORT}/api/user/post/retweet/${post.retweets[0].id}`, { withCredentials: true }),
+            api.delete(`/user/post/retweet/${post.retweets[0].id}`, { withCredentials: true }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['posts'] })
         }
@@ -76,7 +74,6 @@ export default function LikeRewteet({ post }: { post: any }) {
             console.log(err)
         }
     }
-
 
 
     return <div className="flex gap-5">

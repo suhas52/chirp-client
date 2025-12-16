@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import axios, { AxiosError } from "axios";
+import { api } from "@/lib/axiosApi";
 
 const registerSchema = z.object({
   firstName: z.string().min(3).max(8),
@@ -46,7 +47,7 @@ export function SignupForm({
 
   const onSubmit = async (registerData: RegisterFieldsType) => {
     try {
-      const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/auth/register`, registerData, {
+      const response = await api.post(`/auth/register`, registerData, {
         withCredentials: true
       })
       navigate('/login')

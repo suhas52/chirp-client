@@ -14,9 +14,9 @@ import z from "zod"
 import { Textarea } from "../ui/textarea"
 import axios from "axios"
 import { useState } from "react"
+import { api } from "@/lib/axiosApi"
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
+
 const commentSchema = z.object({
     content: z.string().min(5, "Comment must be atleast 5 letters long")
         .max(255, "Your comment cannot be more than 255 letters long")
@@ -32,7 +32,7 @@ export default function PostComment({ postId }: { postId: string }) {
 
     const onSubmit = async (commentData: CommentField) => {
         try {
-            const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/user/comment/${postId}`, commentData, {
+            const response = await api.post(`/user/comment/${postId}`, commentData, {
                 withCredentials: true
             })
             console.log(response.data.data)

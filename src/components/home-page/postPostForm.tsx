@@ -3,14 +3,12 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "@/lib/axiosApi";
 
 const postSchema = z.object({
     content: z.string().min(3, "Post cannot be less than 3 letter long").max(255, "Post cannot be more than 255 letters long")
 })
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
 
 type PostType = z.infer<typeof postSchema>
 
@@ -23,7 +21,7 @@ export default function PostForm() {
     const onSubmit = async (postData: PostType) => {
         try {
 
-            const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/user/post`, postData, {
+            const response = await api.post("/user/post", postData, {
                 withCredentials: true
             })
             console.log(response.data)

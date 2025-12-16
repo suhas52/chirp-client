@@ -1,12 +1,10 @@
 import axios from "axios";
+import { api } from "./axiosApi";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
+
 
 export default async function fetchUser() {
-    const response = await axios.get(`${SERVER_URL}:${SERVER_PORT}/api/auth/me`, {
-        withCredentials: true
-    })
+    const response = await api.get("/auth/me")
     if (response.status === 200) return response.data.data
     else {
         return null

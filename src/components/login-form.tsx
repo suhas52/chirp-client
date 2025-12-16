@@ -19,6 +19,7 @@ import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from 'axios'
 import { useNavigate } from "react-router"
+import { api } from "@/lib/axiosApi"
 
 const loginSchema = z.object({
   username: z.string().min(3, "Username must have atleast 3 characters").max(12, "Username cannot exceed 12 letters"),
@@ -41,7 +42,7 @@ export function LoginForm({
 
   const onSubmit = async (loginData: LoginFormFields) => {
     try {
-      const response = await axios.post(`${SERVER_URL}:${SERVER_PORT}/api/auth/login`, loginData, {
+      const response = await api.post(`/auth/login`, loginData, {
         withCredentials: true
       })
       navigate('/home')

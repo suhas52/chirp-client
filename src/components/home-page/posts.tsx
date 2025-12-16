@@ -10,9 +10,8 @@ import { useEffect } from "react";
 import LikeRewteet from "./like-retweet";
 import PostComment from "./post-comments";
 import fetchUser from "@/lib/getUserObject";
+import { api } from "@/lib/axiosApi";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-const SERVER_PORT = import.meta.env.VITE_SERVER_PORT;
 
 type Post = {
     id: string,
@@ -34,7 +33,7 @@ export default function Posts() {
 
     const getPosts = async ({ pageParam }: { pageParam: number }) => {
         const encodedPageParam = btoa(String(pageParam));
-        const response = await axios.get(`${SERVER_URL}:${SERVER_PORT}/api/user/posts?take=10&cursor=${encodedPageParam}&userId=${user.data?.id}`)
+        const response = await api.get(`/user/posts?take=10&cursor=${encodedPageParam}&userId=${user.data?.id}`)
         return response.data.data
     }
 
