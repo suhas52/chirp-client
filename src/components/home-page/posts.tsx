@@ -10,6 +10,7 @@ import LikeRewteet from "./like-retweet";
 import PostComment from "./post-comments";
 import fetchUser from "@/lib/getUserObject";
 import { api } from "@/lib/axiosApi";
+import { Skeleton } from "../ui/skeleton";
 
 
 type Post = {
@@ -43,7 +44,7 @@ export default function Posts() {
     })
 
 
-    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } = useInfiniteQuery({
         queryKey: ['posts'],
         queryFn: getPosts,
         initialPageParam: 1,
@@ -65,7 +66,26 @@ export default function Posts() {
         }
 
     }, [inView, fetchNextPage, hasNextPage])
-    console.log(data)
+
+
+    if (!isFetched) {
+        const count = 10;
+
+        return (
+            <div className="m-1 min-w-xl max-w-lg flex flex-wrap min-h-20">
+                {Array.from({ length: count }).map((_, index) => (
+                    <div key={index} className="flex flex-col space-y-3">
+                        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-4 w-[250px]" />
+                            <Skeleton className="h-4 w-[200px]" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
     return <ItemGroup>
 
         {data?.pages.map((page) =>
