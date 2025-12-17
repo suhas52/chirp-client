@@ -31,10 +31,15 @@ type Post = {
 
 export default function Posts() {
 
-    const getPosts = async ({ pageParam }: { pageParam: number }) => {
-        const encodedPageParam = btoa(String(pageParam));
-        const response = await api.get(`/user/posts?take=10&cursor=${encodedPageParam}&userId=${user.data?.id}`)
+    const getPosts = async ({ pageParam }: { pageParam: number | null }) => {
+        if (pageParam) {
+            const encodedPageParam = btoa(String(pageParam));
+            const response = await api.get(`/user/posts?take=10&cursor=${encodedPageParam}&userId=${user.data?.id}`)
+            return response.data.data
+        }
+        const response = await api.get(`/user/posts?take=10&userId=${user.data?.id}`)
         return response.data.data
+
     }
 
     const user = useQuery({
@@ -47,7 +52,7 @@ export default function Posts() {
     const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } = useInfiniteQuery({
         queryKey: ['posts'],
         queryFn: getPosts,
-        initialPageParam: 1,
+        initialPageParam: null,
         enabled: user.isFetched,
         getNextPageParam: (lastPage) => {
 

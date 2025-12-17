@@ -5,6 +5,7 @@ import { Textarea } from "../ui/textarea";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axiosApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 const postSchema = z.object({
     content: z.string().min(3, "Post cannot be less than 3 letter long").max(255, "Post cannot be more than 255 letters long")
@@ -18,11 +19,13 @@ export default function PostForm() {
         resolver: zodResolver(postSchema)
     })
 
+    const queryClient = useQueryClient();
+
     const onSubmit = async (postData: PostType) => {
         try {
 
             const response = await api.post("/user/post", postData)
-            console.log(response.data)
+            queryClient.invalidateQueries({ queryKey: ['posts'] })
             reset()
         } catch (error: any) {
             console.log(error.response)

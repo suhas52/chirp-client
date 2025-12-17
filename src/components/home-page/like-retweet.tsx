@@ -113,7 +113,7 @@ export default function LikeRewteet({ post }: { post: any }) {
 
     }
 
-    const retweetPress = async () => {
+    const handleRetweetPress = async () => {
         try {
             if (post.retweets.length === 0) {
                 retweetMutate.mutate()
@@ -134,7 +134,7 @@ export default function LikeRewteet({ post }: { post: any }) {
             <p>{post._count.likes}</p>
         </div>
         <div className="flex gap-1">
-            <svg onClick={retweetPress} className={post.retweets.length > 0 ? "fill-green-700" : ""} width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={handleRetweetPress} className={post.retweets.length > 0 ? "fill-green-700" : ""} width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <title>retweet</title>
                 <path d="M8.013 22.033v-7.972h3.932l-5.902-6.892-6.026 6.893h3.947v11.896h17.468l-3.923-3.924h-9.496zM28.036 19.001v-11.958h-17.531l3.986 3.985h9.496v7.973h-3.932l5.901 6.893 6.026-6.893h-3.946z"></path>
             </svg>

@@ -12,7 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { Textarea } from "../ui/textarea"
-import { useState } from "react"
 import { api } from "@/lib/axiosApi"
 
 
@@ -24,7 +23,6 @@ const commentSchema = z.object({
 type CommentField = z.infer<typeof commentSchema>
 
 export default function PostComment({ postId }: { postId: string }) {
-    const [open, setOpen] = useState(false);
     const { register, setError, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm<CommentField>({
         resolver: zodResolver(commentSchema)
     })
