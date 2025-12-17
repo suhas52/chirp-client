@@ -11,6 +11,7 @@ import PostComment from "./post-comments";
 import fetchUser from "@/lib/getUserObject";
 import { api } from "@/lib/axiosApi";
 import { Skeleton } from "../ui/skeleton";
+import { Link, useNavigate } from "react-router";
 
 
 type Post = {
@@ -31,6 +32,7 @@ type Post = {
 
 export default function Posts() {
 
+    const navigate = useNavigate();
     const getPosts = async ({ pageParam }: { pageParam: number | null }) => {
         if (pageParam) {
             const encodedPageParam = btoa(String(pageParam));
@@ -80,10 +82,10 @@ export default function Posts() {
             <div className="m-1 min-w-xl max-w-lg flex flex-wrap min-h-20">
                 {Array.from({ length: count }).map((_, index) => (
                     <div key={index} className="flex flex-col space-y-3">
-                        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                        <Skeleton className="h-31.25 w-62.5 rounded-xl" />
                         <div className="space-y-2">
-                            <Skeleton className="h-4 w-[250px]" />
-                            <Skeleton className="h-4 w-[200px]" />
+                            <Skeleton className="h-4 w-62.5" />
+                            <Skeleton className="h-4 w-50" />
                         </div>
                     </div>
                 ))}
@@ -105,13 +107,16 @@ export default function Posts() {
                                 <AvatarImage src={post.avatarUrl} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <p>{post.user.username}</p>
+                            <Link to={`/profile/${user.data.id}`}>{post.user.username}</Link>
                         </div>
                         <p className="min-h-20 my-5 bg-amber-50 p-1 rounded-2xl">{post.content}</p>
                     </ItemContent>
                     <ItemActions className="flex w-full justify-between">
                         <LikeRewteet post={post} />
-                        <PostComment postId={post.id} />
+                        <div className="flex gap-5">
+                            <PostComment postId={post.id} />
+                            <Button onClick={() => navigate(`/post/${post.id}`)}>View post</Button>
+                        </div>
                     </ItemActions>
                 </Item>
             ))

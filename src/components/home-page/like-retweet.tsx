@@ -37,6 +37,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 })),
             };
         });
+
     };
 
 
@@ -50,6 +51,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [{ id: updatedPost.data.data.id }],
                 +1
             );
+            queryClient.invalidateQueries({ queryKey: ['post'] })
         },
     });
 
@@ -64,6 +66,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [],
                 -1
             );
+            queryClient.invalidateQueries({ queryKey: ['post'] })
         },
     });
 
@@ -78,6 +81,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [{ id: updatedPost.data.data.id }],
                 +1
             );
+            queryClient.invalidateQueries({ queryKey: ['post'] })
         },
     });
 
@@ -94,6 +98,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [],
                 -1
             );
+            queryClient.invalidateQueries({ queryKey: ['post'] })
         },
     });
 
@@ -117,6 +122,7 @@ export default function LikeRewteet({ post }: { post: any }) {
         try {
             if (post.retweets.length === 0) {
                 retweetMutate.mutate()
+
             }
             if (post.retweets.length > 0) {
                 unRetweetMutate.mutate()
