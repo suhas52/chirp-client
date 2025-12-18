@@ -26,7 +26,6 @@ export default function IndividualPost() {
         enabled: user.isFetched
     })
 
-    console.log(postId)
 
     if (!isFetched) return <p>Loading</p>
 

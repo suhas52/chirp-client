@@ -41,6 +41,8 @@ export default function Comments({ postId }: any) {
 
     }, [inView, fetchNextPage, hasNextPage])
 
+    if (!isFetched) return <h1>Loading</h1>
+
     return <ItemGroup>
 
         {comments?.pages.map((page) =>
