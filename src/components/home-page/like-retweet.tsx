@@ -51,7 +51,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [{ id: updatedPost.data.data.id }],
                 +1
             );
-            queryClient.invalidateQueries({ queryKey: ['post'] })
+            queryClient.invalidateQueries({ queryKey: ['post', post.id] })
         },
     });
 
@@ -66,7 +66,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [],
                 -1
             );
-            queryClient.invalidateQueries({ queryKey: ['post'] })
+            queryClient.invalidateQueries({ queryKey: ['post', post.id] })
         },
     });
 
@@ -81,7 +81,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [{ id: updatedPost.data.data.id }],
                 +1
             );
-            queryClient.invalidateQueries({ queryKey: ['post'] })
+            queryClient.invalidateQueries({ queryKey: ['post', post.id] })
         },
     });
 
@@ -98,7 +98,7 @@ export default function LikeRewteet({ post }: { post: any }) {
                 [],
                 -1
             );
-            queryClient.invalidateQueries({ queryKey: ['post'] })
+            queryClient.invalidateQueries({ queryKey: ['post', post.id] })
         },
     });
 
