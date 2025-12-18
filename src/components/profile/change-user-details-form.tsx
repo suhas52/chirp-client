@@ -9,6 +9,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
@@ -63,7 +64,7 @@ export default function ChangeUserDetailsForm({ user }: any) {
               placeholder={user.data.firstName}
               {...register('firstName')}
             />
-            <FieldDescription className="text-red-700">{errors.firstName?.message}</FieldDescription>
+            <FieldError className={errors?.firstName?.message ? 'visible' : 'invisible'}>{errors?.firstName?.message ?? 'placeholder'}</FieldError>
           </Field>
           <Field>
             <div className="flex items-center">
@@ -73,7 +74,7 @@ export default function ChangeUserDetailsForm({ user }: any) {
               type="text"
               placeholder={user.data.lastName}
             />
-            <FieldDescription className="text-red-700">{errors.lastName?.message}</FieldDescription>
+            <FieldError className={errors?.lastName?.message ? 'visible' : 'invisible'}>{errors?.lastName?.message ?? 'placeholder'}</FieldError>
           </Field>
           <Field>
             <Button type="submit">Submit</Button>

@@ -6,8 +6,9 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldError } from "../ui/field";
+import { FieldDescription, FieldError } from "../ui/field";
 import { api } from "@/lib/axiosApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 type FileUpload = {
@@ -16,30 +17,40 @@ type FileUpload = {
 
 export default function ChangeAvatar({ user }: any) {
 
+    const queryClient = useQueryClient();
+
     const { register, setError, formState: { errors }, handleSubmit } = useForm<FileUpload>()
 
     const onSubmit = async (data: FileUpload) => {
         const formData = new FormData();
-        formData.append("file", data.avatar[0]);
-        console.log(formData)
+        formData.append("avatar", data.avatar[0]);
         try {
             const response = await api.patch(`/auth/update-avatar`, formData)
+            queryClient.invalidateQueries({ queryKey: ['user'] })
         } catch (error: any) {
             console.log(error.response.data)
+            setError('avatar', {
+                type: "server",
+                message: error.response.data.message
+            })
         }
     }
+    console.log(errors)
 
-    return <form onSubmit={handleSubmit(onSubmit)}>
-        Current avatar:
-        <Avatar className="w-50 h-50">
-            <AvatarImage src={user.data.avatarUrl}></AvatarImage>
-        </Avatar>
-        <Label>Upload new avatar</Label>
-        <Input type="file" {...register('avatar')}
-            onChange={(event) =>
-                event.target.files && event.target.files[0]
-            } />
-        <FieldError>{errors?.avatar?.message}</FieldError>
-        <Button>Submit</Button>
-    </form>
+    return <div className="max-w-lg border p-5 rounded-2xl shadow">
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-2">
+                Current avatar:
+                <Avatar className="w-50 h-50">
+                    <AvatarImage src={user.data.avatarUrl}></AvatarImage>
+                </Avatar>
+            </div>
+            <div className="flex flex-col gap-5 mt-5">
+                <Label>Upload new avatar</Label>
+                <Input type="file" {...register('avatar')} />
+                <FieldError className={errors?.avatar?.message ? 'visible' : 'invisible'}>{errors?.avatar?.message ?? 'placeholder'}</FieldError>
+                <Button>Submit</Button>
+            </div>
+        </form>
+    </div>
 }

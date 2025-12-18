@@ -64,7 +64,7 @@ export default function Comments({ postId }: any) {
                 </Item>
             ))
         )}
-        <Button ref={ref} className="w-15 self-center" disabled={!hasNextPage} onClick={() => fetchNextPage()}>{hasNextPage ? "Next" : "End of the page"}</Button>
+        <Button ref={ref} className="w-15 self-center" disabled={!hasNextPage} onClick={() => fetchNextPage()}>{hasNextPage ? "Next" : "End"}</Button>
         <Separator orientation="horizontal" />
         {isFetchingNextPage && <Spinner className="self-center size-8" />}
         <p className="text-red-500 text-center" hidden={hasNextPage}>No more posts</p>
