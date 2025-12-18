@@ -4,9 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 
 export default function Login() {
-
     const user = useQuery(userQueryOptions)
-
 
     if (user.data) return <Navigate to={"/home"} />
 

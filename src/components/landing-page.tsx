@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 
 
 export default function LandingPage() {
-
     const navigate = useNavigate();
 
     return <div className="min-h-screen flex flex-col justify-center items-center">

@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 import { Textarea } from "../ui/textarea"
 import { api } from "@/lib/axiosApi"
+import { useQuery } from "@tanstack/react-query"
+import { userQueryOptions } from "@/lib/userQuery"
 
 
 const commentSchema = z.object({
@@ -36,14 +38,14 @@ export default function PostComment({ postId }: { postId: string }) {
 
         }
     }
-
+    const user = useQuery(userQueryOptions)
 
 
     return <div>
         <Dialog>
 
             <DialogTrigger asChild>
-                <Button>Comment</Button>
+                <Button disabled={!user.data}>Comment</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" aria-describedby="post comment">
                 <form onSubmit={handleSubmit(onSubmit)}>

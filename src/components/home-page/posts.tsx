@@ -28,6 +28,7 @@ type Post = {
     user: {
         username: string,
         avatarFileName: string,
+        id: string
     }
 }
 
@@ -89,6 +90,7 @@ export default function Posts() {
             </div>
         );
     }
+    console.log(data)
 
     return <ItemGroup>
 
@@ -104,7 +106,7 @@ export default function Posts() {
                                 <AvatarImage src={post.avatarUrl} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <Link to={`/profile/${user.data.id}`}>{post.user.username}</Link>
+                            <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
                         </div>
                         <p className="min-h-20 my-5 bg-amber-50 p-1 rounded-2xl">{post.content}</p>
                     </ItemContent>

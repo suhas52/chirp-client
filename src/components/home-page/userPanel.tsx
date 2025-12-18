@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardDescription } from "../ui/card";
 import { Button } from "../ui/button";
 import { useQuery } from "@tanstack/react-query";
-import fetchUser from "@/lib/getUserObject";
 import { useNavigate } from "react-router";
 import { userQueryOptions } from "@/lib/userQuery";
 
@@ -27,6 +26,7 @@ export default function UserPanel() {
                     :
                     <Button onClick={() => navigate("/login")}>Login</Button>
             }
+
         </CardContent>
     </Card>
 }

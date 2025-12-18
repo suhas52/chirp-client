@@ -10,8 +10,6 @@ import LandingPage from './components/landing-page'
 
 function App() {
 
-
-
   return (
     <>
       <Routes>
