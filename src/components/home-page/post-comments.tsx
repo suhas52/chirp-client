@@ -30,7 +30,7 @@ export default function PostComment({ postId }: { postId: string }) {
     const onSubmit = async (commentData: CommentField) => {
         try {
             const response = await api.post(`/user/comment/${postId}`, commentData)
-            console.log(response.data.data)
+
 
         } catch (err) {
 

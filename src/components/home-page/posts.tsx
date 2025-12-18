@@ -12,6 +12,7 @@ import fetchUser from "@/lib/getUserObject";
 import { api } from "@/lib/axiosApi";
 import { Skeleton } from "../ui/skeleton";
 import { Link, useNavigate } from "react-router";
+import { userQueryOptions } from "@/lib/userQuery";
 
 
 type Post = {
@@ -44,11 +45,7 @@ export default function Posts() {
 
     }
 
-    const user = useQuery({
-        queryKey: ['user'],
-        queryFn: fetchUser,
-        retry: false
-    })
+    const user = useQuery(userQueryOptions)
 
 
     const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } = useInfiniteQuery({

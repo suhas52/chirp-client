@@ -10,6 +10,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
@@ -65,16 +66,15 @@ export function LoginForm({
                   {...register("username")}
                   type="text"
                   placeholder="johndoe"
-                  required
                 />
-                <FieldDescription className="text-red-700">{errors.username?.message}</FieldDescription>
+                <FieldError>{errors.username?.message}</FieldError>
               </Field>
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                 </div>
                 <Input {...register("password")} type="password" required />
-                <FieldDescription className="text-red-700">{errors.password?.message}</FieldDescription>
+                <FieldError>{errors.password?.message}</FieldError>
               </Field>
               <Field>
                 <Button type="submit">Login</Button>

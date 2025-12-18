@@ -12,7 +12,7 @@ export default function Profile() {
 
     if (!user) return <h1>Cannot access page</h1>
     if (!user.isFetched) return <p>Loading</p>
-    console.log(user.data)
+
 
     return <div className="min-h-screen p-10 flex justify-between items-center">
         <ChangeAvatar user={user} />

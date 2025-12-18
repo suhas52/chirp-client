@@ -39,7 +39,7 @@ export default function ChangeUserDetailsForm({ user }: any) {
   const onSubmit = async (formData: UserDetailsForm) => {
     try {
       const response = await api.patch(`/auth/update-profile`, formData)
-      console.log(response.data);
+
       queryClient.invalidateQueries({ queryKey: ['user'] })
       reset();
     } catch (error) {

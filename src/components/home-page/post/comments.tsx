@@ -29,7 +29,7 @@ export default function Comments({ postId }: any) {
         queryFn: getComments,
         initialPageParam: null,
         getNextPageParam: (lastPage) => {
-            console.log(lastPage)
+
             return lastPage.nextCursor
         },
     })

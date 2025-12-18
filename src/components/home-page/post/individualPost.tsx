@@ -5,14 +5,11 @@ import fetchUser from "@/lib/getUserObject";
 import Post from "./post";
 import Comments from "./comments";
 import UserPanel from "../userPanel";
+import { userQueryOptions } from "@/lib/userQuery";
 
 
 export default function IndividualPost() {
-    const user = useQuery({
-        queryKey: ['user'],
-        queryFn: fetchUser,
-        retry: false
-    })
+    const user = useQuery(userQueryOptions)
     const { postId } = useParams();
     const getPost = async () => {
         const response = await api.get(`/user/post/${postId}?userId=${user.data.id}`);

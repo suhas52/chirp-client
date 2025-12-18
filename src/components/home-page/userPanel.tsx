@@ -4,14 +4,11 @@ import { Button } from "../ui/button";
 import { useQuery } from "@tanstack/react-query";
 import fetchUser from "@/lib/getUserObject";
 import { useNavigate } from "react-router";
+import { userQueryOptions } from "@/lib/userQuery";
 
 export default function UserPanel() {
 
-    const { data } = useQuery({
-        queryKey: ['user'],
-        queryFn: fetchUser,
-        retry: false
-    })
+    const { data } = useQuery(userQueryOptions)
 
     const navigate = useNavigate();
 

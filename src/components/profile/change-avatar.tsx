@@ -35,7 +35,7 @@ export default function ChangeAvatar({ user }: any) {
             })
         }
     }
-    console.log(errors)
+
 
     return <div className="max-w-lg border p-5 rounded-2xl shadow">
         <form onSubmit={handleSubmit(onSubmit)}>
