@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 export default function LandingPage() {
     const navigate = useNavigate();
 
-    return <div className="min-h-screen flex flex-col justify-center items-center">
+    return <div className="min-h-full flex flex-1 flex-col justify-center items-center">
         <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
             Welcome to Chirp
         </h1>

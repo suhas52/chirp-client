@@ -8,7 +8,7 @@ export default function Login() {
 
     if (user.data) return <Navigate to={"/home"} />
 
-    return <div className="flex flex-1 items-center justify-center min-h-dvh">
+    return <div className="flex flex-1 items-center justify-center">
 
         <div className="w-full max-w-lg p-5 m-5 rounded-2xl drop-shadow-2xl">
             <LoginForm />
