@@ -15,10 +15,9 @@ export default function Navbar() {
     </div>
 
 
-
     return <div className="flex justify-center mt-1">
-        <div className="min-w-5xl border min-h-15 flex justify-between shadow-2xl">
-            <div className="flex items-center">
+        <div className="min-w-5xl border min-h-15 flex justify-between shadow-2xl rounded-2xl">
+            <div className="flex items-center mx-1">
                 <Button onClick={() => navigate('/home')}>Home</Button>
             </div>
             <div onClick={() => navigate('/')}>

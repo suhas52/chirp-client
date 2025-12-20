@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/axiosApi";
 import Post from "./post";
 import Comments from "./comments";
-import UserPanel from "../userPanel";
 import { userQueryOptions } from "@/lib/userQuery";
 
 
@@ -34,7 +33,7 @@ export default function IndividualPost() {
     return <div className="flex flex-col items-center">
         <div className="flex justify-center">
             <Post post={post} />
-            <UserPanel />
+
         </div>
         <Comments postId={postId} />
     </div>

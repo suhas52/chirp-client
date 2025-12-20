@@ -22,6 +22,7 @@ function App() {
           <Route path='/home' element={<Homepage />} />
           <Route path='/post/:postId' element={<IndividualPost />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/user/:id' />
         </Routes>
       </div>
     </>

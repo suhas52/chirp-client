@@ -54,8 +54,7 @@ export default function AvatarHolder({ user }: { user: any }) {
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                {user && ifLoggedIn()}
-                {!user && ifLoggedOut()}
+                {user ? ifLoggedIn() : ifLoggedOut()}
             </DropdownMenuContent>
         </DropdownMenu>
     </div>
