@@ -5,9 +5,10 @@ import Register from './components/sign-up/registerPage'
 import Login from './components/login-in/loginPage'
 import Homepage from './components/home-page/home'
 import IndividualPost from './components/home-page/post/individualPost'
-import Profile from './components/profile/profile'
+import Profile from './components/edit-profile/edit-profile'
 import LandingPage from './components/landing-page'
 import Navbar from './components/navbar/navbar'
+import OtherProfile from './components/user-profile/user-profile'
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
           <Route path='/home' element={<Homepage />} />
           <Route path='/post/:postId' element={<IndividualPost />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/user/:id' />
+          <Route path='/profile/:userId' element={<OtherProfile />} />
         </Routes>
       </div>
     </>
