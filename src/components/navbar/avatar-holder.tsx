@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { useNavigate } from "react-router";
 import { api } from "@/lib/axiosApi";
 
-export default function AvatarHolder({ user }: { user: any }) {
+export default function AvatarHolder({ user }: { user: { avatarUrl?: string } }) {
     const handleLogout = async () => {
         try {
             const response = await api.post(`/auth/logout`)

@@ -15,21 +15,37 @@ import { Link, useNavigate } from "react-router";
 import { userQueryOptions } from "@/lib/userQuery";
 
 
-type Post = {
-    id: string,
-    content: string,
-    updatedAt: Date,
-    userId: string,
-    _count: {
-        likes: number,
-        retweets: number
-    },
-    avatarUrl: string
-    user: {
-        username: string,
-        avatarFileName: string,
-        id: string
-    }
+interface Page {
+    posts: Post[];
+    nextCursor: number;
+}
+
+interface Post {
+    id: string;
+    content: string;
+    updatedAt: string;
+    userId: string;
+    cursorId: number;
+    _count: Count;
+    likes: Like[];
+    retweets: any[];
+    user: User;
+    avatarUrl: string;
+}
+
+interface User {
+    avatarFileName: string;
+    username: string;
+    id: string;
+}
+
+interface Like {
+    id: string;
+}
+
+interface Count {
+    likes: number;
+    retweets: number;
 }
 
 export default function Posts() {
@@ -59,6 +75,7 @@ export default function Posts() {
             return lastPage.nextCursor
         },
     })
+    console.log(data)
 
 
 
@@ -108,8 +125,9 @@ export default function Posts() {
                             </Avatar>
                             <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
                         </div>
-                        <p className="min-h-20 my-5 bg-amber-50 p-1 rounded-2xl">{post.content}</p>
+                        <p className=" my-5 wrap-break-word whitespace-pre-wrap p-1 rounded-2xl">{post.content}</p>
                     </ItemContent>
+                    <Separator />
                     <ItemActions className="flex w-full justify-between">
                         <LikeRewteet post={post} />
                         <div className="flex gap-5">

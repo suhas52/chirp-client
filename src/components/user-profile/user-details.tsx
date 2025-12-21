@@ -1,20 +1,14 @@
+import type { UserObject } from "@/types/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-interface UserObject {
-    id: string;
-    firstName: string;
-    lastName: string;
-    username: string;
-    avatarFileName: string;
-    avatarUrl: string;
-}
+
 
 export default function UserDetails({ user }: { user: UserObject }) {
 
     console.log(user)
 
-    return <div>
+    return <div className="mt-5 ">
         <Card>
             <CardHeader>
                 <CardTitle>User Details</CardTitle>
@@ -26,6 +20,12 @@ export default function UserDetails({ user }: { user: UserObject }) {
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <p>{user.username}</p>
+                </div>
+                <div className="pt-5">
+                    <p>Name: {user.firstName} {user.lastName}</p>
+                </div>
+                <div className="max-w-lg min-w-lg py-5">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, accusantium cum, quod recusandae laudantium voluptate omnis, aspernatur officia ab voluptates voluptatum! Magni.</p>
                 </div>
             </CardContent>
         </Card>

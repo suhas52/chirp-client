@@ -10,7 +10,7 @@ export default function Profile() {
     if (!user.data) return <Navigate to={"/home"} />
 
     return <div className="min-w-full p-10 flex flex-1 gap-10 items-center justify-center">
-        <ChangeAvatar user={user} />
-        <ChangeUserDetailsForm user={user} />
+        <ChangeAvatar user={user.data} />
+        <ChangeUserDetailsForm user={user.data} />
     </div>
 }

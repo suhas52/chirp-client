@@ -18,8 +18,12 @@ export default function OtherProfile() {
         queryFn: () => fetchUser(id)
     })
 
-    return <div className="flex flex-1 justify-center">
+    if (userQuery.isFetching) return <p>Loading</p>
+
+    if (!userQuery.data) return <p>Error</p>
+
+    return <div className="flex flex-col flex-1 items-center">
         <UserDetails user={userQuery.data} />
-        <UserPosts />
+        <UserPosts user={userQuery.data} />
     </div>
 }

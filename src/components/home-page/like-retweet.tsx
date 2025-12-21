@@ -1,7 +1,46 @@
 import { api } from "@/lib/axiosApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-export default function LikeRewteet({ post }: { post: any }) {
+interface PostResponse {
+    pages: Page[];
+    pageParams: null[];
+}
+
+
+interface Page {
+    posts: Post[];
+    nextCursor: number;
+}
+
+interface Post {
+    id: string;
+    content: string;
+    updatedAt: string;
+    userId: string;
+    cursorId: number;
+    _count: Count;
+    likes: Like[];
+    retweets: any[];
+    user: User;
+    avatarUrl: string;
+}
+
+interface User {
+    avatarFileName: string;
+    username: string;
+    id: string;
+}
+
+interface Like {
+    id: string;
+}
+
+interface Count {
+    likes: number;
+    retweets: number;
+}
+
+export default function LikeRewteet({ post }: { post: Post }) {
     const queryClient = useQueryClient()
     type InteractionKey = 'likes' | 'retweets';
     const updatePostInteractionCache = (
@@ -11,14 +50,14 @@ export default function LikeRewteet({ post }: { post: any }) {
         items: any[],
         delta: number
     ) => {
-        queryClient.setQueryData(['posts'], (oldData: any) => {
+        queryClient.setQueryData(['posts'], (oldData: PostResponse) => {
             if (!oldData) return oldData;
-
+            console.log(oldData)
             return {
                 ...oldData,
-                pages: oldData.pages.map((page: any) => ({
+                pages: oldData.pages.map((page: Page) => ({
                     ...page,
-                    posts: page.posts.map((p: any) => {
+                    posts: page.posts.map((p: Post) => {
                         if (p.id !== postId) return p;
 
                         return {

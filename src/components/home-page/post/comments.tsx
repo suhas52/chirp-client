@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Item, ItemActions, ItemContent, ItemGroup } from "@/components/ui/item";
+import { Item, ItemContent, ItemGroup } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { api } from "@/lib/axiosApi"
@@ -9,7 +9,28 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router";
 
-export default function Comments({ postId }: any) {
+
+interface Page {
+    comments: Comment[];
+    nextCursor: null;
+}
+
+interface Comment {
+    content: string;
+    createdAt: string;
+    cursorId: number;
+    id: string;
+    user: User;
+    avatarUrl: string;
+}
+
+interface User {
+    avatarFileName: string;
+    username: string;
+    id: string;
+}
+
+export default function Comments({ postId }: { postId: string }) {
 
     const getComments = async ({ pageParam }: { pageParam: number | null }) => {
         if (pageParam) {
@@ -42,24 +63,24 @@ export default function Comments({ postId }: any) {
     }, [inView, fetchNextPage, hasNextPage])
 
     if (!isFetched) return <h1>Loading</h1>
-
+    console.log(comments)
     return <ItemGroup>
 
-        {comments?.pages.map((page) =>
-            page.comments.map((post: any) => (
+        {comments?.pages.map((page: Page) =>
+            page.comments.map((comment: Comment) => (
                 <Item
-                    key={post.id}
+                    key={comment.id}
                     className="p-2 bg-slate-50 border border-slate-200 text-slate-900 m-1 min-w-xl max-w-lg flex flex-wrap"
                 >
                     <ItemContent className="w-full">
                         <div className="flex gap-2 items-center">
                             <Avatar>
-                                <AvatarImage src={post.avatarUrl} />
+                                <AvatarImage src={comment.avatarUrl} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
+                            <Link to={`/profile/${comment.user.id}`}>{comment.user.username}</Link>
                         </div>
-                        <p className="min-h-20 my-5 bg-amber-50 p-1 rounded-2xl">{post.content}</p>
+                        <p className="min-h-20 my-5 bg-amber-50 p-1 rounded-2xl">{comment.content}</p>
                     </ItemContent>
                 </Item>
             ))

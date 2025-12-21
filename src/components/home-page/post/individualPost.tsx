@@ -9,6 +9,7 @@ import { userQueryOptions } from "@/lib/userQuery";
 export default function IndividualPost() {
     const user = useQuery(userQueryOptions)
     const { postId } = useParams();
+    const id = postId!;
     const getPost = async () => {
         if (user.data) {
             const response = await api.get(`/user/post/${postId}?userId=${user.data.id}`);
@@ -21,20 +22,20 @@ export default function IndividualPost() {
 
     }
 
-    const { data: post, isFetched } = useQuery({
+    const post = useQuery({
         queryKey: ['post', postId],
         queryFn: getPost,
         enabled: user.isFetched
     })
 
-    console.log(post)
-    if (!isFetched) return <p>Loading</p>
+    console.log(post.data)
+    if (!post.isFetched) return <p>Loading</p>
 
     return <div className="flex flex-col items-center">
         <div className="flex justify-center">
-            <Post post={post} />
+            <Post post={post.data} />
 
         </div>
-        <Comments postId={postId} />
+        <Comments postId={id} />
     </div>
 }

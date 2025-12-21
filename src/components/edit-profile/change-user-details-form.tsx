@@ -19,6 +19,7 @@ import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/lib/axiosApi"
 import { useQueryClient } from "@tanstack/react-query"
+import type { UserObject } from "@/types/types"
 
 const userDetailsSchema = z.object({
   firstName: z.string().min(3, "Cannot be less than 3 letters long").max(15, "Cannot be more than 15 letters long"),
@@ -28,7 +29,7 @@ const userDetailsSchema = z.object({
 type UserDetailsForm = z.infer<typeof userDetailsSchema>
 
 
-export default function ChangeUserDetailsForm({ user }: any) {
+export default function ChangeUserDetailsForm({ user }: { user: UserObject }) {
 
   const queryClient = useQueryClient();
   const { register, handleSubmit, setError, formState: { errors }, reset } = useForm<UserDetailsForm>({
@@ -61,7 +62,7 @@ export default function ChangeUserDetailsForm({ user }: any) {
             <FieldLabel>First Name</FieldLabel>
             <Input
               type="text"
-              placeholder={user.data.firstName}
+              placeholder={user.firstName}
               {...register('firstName')}
             />
             <FieldError className={errors?.firstName?.message ? 'visible' : 'invisible'}>{errors?.firstName?.message ?? 'placeholder'}</FieldError>
@@ -72,7 +73,7 @@ export default function ChangeUserDetailsForm({ user }: any) {
             </div>
             <Input {...register('lastName')}
               type="text"
-              placeholder={user.data.lastName}
+              placeholder={user.lastName}
             />
             <FieldError className={errors?.lastName?.message ? 'visible' : 'invisible'}>{errors?.lastName?.message ?? 'placeholder'}</FieldError>
           </Field>
