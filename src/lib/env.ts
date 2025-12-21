@@ -12,4 +12,4 @@ const envValidation = z.safeParse(envSchema, {
 
 if (!envValidation.success) throw new Error(envValidation.error.message)
 
-export const envConf = envValidation.data;
+export const envConf = envValidation.data
