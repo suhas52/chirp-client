@@ -1,6 +1,6 @@
 import { userQueryOptions } from "@/lib/userQuery"
 import { useQuery } from "@tanstack/react-query"
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 import AvatarHolder from "./avatar-holder";
 

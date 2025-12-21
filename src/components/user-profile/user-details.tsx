@@ -1,12 +1,11 @@
 import type { UserObject } from "@/types/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Separator } from "../ui/separator";
 
 
 
 export default function UserDetails({ user }: { user: UserObject }) {
-
-    console.log(user)
 
     return <div className="mt-5 ">
         <Card>
@@ -24,8 +23,10 @@ export default function UserDetails({ user }: { user: UserObject }) {
                 <div className="pt-5">
                     <p>Name: {user.firstName} {user.lastName}</p>
                 </div>
+                <Separator />
                 <div className="max-w-lg min-w-lg py-5">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, accusantium cum, quod recusandae laudantium voluptate omnis, aspernatur officia ab voluptates voluptatum! Magni.</p>
+                    <h4>About me</h4>
+                    <p>{user.bio}</p>
                 </div>
             </CardContent>
         </Card>

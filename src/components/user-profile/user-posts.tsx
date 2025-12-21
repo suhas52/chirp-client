@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "../ui/card";
-import type { UserObject } from "@/types/types";
+import type { PostType, UserObject } from "@/types/types";
 import { api } from "@/lib/axiosApi";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "../ui/avatar";
@@ -10,37 +10,11 @@ import { Skeleton } from "../ui/skeleton";
 import PostComment from "../home-page/post-comments";
 
 interface Page {
-    posts: Post[];
+    posts: PostType[];
     nextCursor: number;
 }
 
-interface Post {
-    id: string;
-    content: string;
-    updatedAt: string;
-    userId: string;
-    cursorId: number;
-    _count: Count;
-    likes: Like[];
-    retweets: any[];
-    user: User;
-    avatarUrl: string;
-}
 
-interface User {
-    avatarFileName: string;
-    username: string;
-    id: string;
-}
-
-interface Like {
-    id: string;
-}
-
-interface Count {
-    likes: number;
-    retweets: number;
-}
 
 export default function UserPosts({ user }: { user: UserObject }) {
 
@@ -84,7 +58,7 @@ export default function UserPosts({ user }: { user: UserObject }) {
 
     return <div>
         {postQuery.data?.pages.map((page: Page) => {
-            return page.posts.map((post: Post) => {
+            return page.posts.map((post: PostType) => {
                 return <Card key={post.id} className="m-1 min-w-lg max-w-lg">
                     <CardHeader className="flex items-center">
                         <Avatar>

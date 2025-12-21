@@ -20,15 +20,15 @@ interface Comment {
     createdAt: string;
     cursorId: number;
     id: string;
-    user: User;
+    user: {
+        avatarFileName: string;
+        username: string;
+        id: string;
+    };
     avatarUrl: string;
 }
 
-interface User {
-    avatarFileName: string;
-    username: string;
-    id: string;
-}
+
 
 export default function Comments({ postId }: { postId: string }) {
 

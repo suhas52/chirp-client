@@ -9,7 +9,6 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { api } from "@/lib/axiosApi";
@@ -26,9 +25,6 @@ const registerSchema = z.object({
 })
 
 type RegisterFieldsType = z.infer<typeof registerSchema>;
-
-
-
 
 
 export function SignupForm({

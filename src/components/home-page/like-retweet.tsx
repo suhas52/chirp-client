@@ -1,4 +1,5 @@
 import { api } from "@/lib/axiosApi";
+import type { PostType } from "@/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 interface PostResponse {
@@ -8,39 +9,13 @@ interface PostResponse {
 
 
 interface Page {
-    posts: Post[];
+    posts: PostType[];
     nextCursor: number;
 }
 
-interface Post {
-    id: string;
-    content: string;
-    updatedAt: string;
-    userId: string;
-    cursorId: number;
-    _count: Count;
-    likes: Like[];
-    retweets: any[];
-    user: User;
-    avatarUrl: string;
-}
 
-interface User {
-    avatarFileName: string;
-    username: string;
-    id: string;
-}
 
-interface Like {
-    id: string;
-}
-
-interface Count {
-    likes: number;
-    retweets: number;
-}
-
-export default function LikeRewteet({ post }: { post: Post }) {
+export default function LikeRewteet({ post }: { post: PostType }) {
     const queryClient = useQueryClient()
     type InteractionKey = 'likes' | 'retweets';
     const updatePostInteractionCache = (
@@ -57,7 +32,7 @@ export default function LikeRewteet({ post }: { post: Post }) {
                 ...oldData,
                 pages: oldData.pages.map((page: Page) => ({
                     ...page,
-                    posts: page.posts.map((p: Post) => {
+                    posts: page.posts.map((p: PostType) => {
                         if (p.id !== postId) return p;
 
                         return {

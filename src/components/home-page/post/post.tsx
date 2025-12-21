@@ -4,36 +4,11 @@ import { Link } from "react-router";
 import LikeRewteet from "../like-retweet";
 import PostComment from "../post-comments";
 import { Separator } from "@/components/ui/separator";
+import type { PostType } from "@/types/types";
 
-interface ResponsePost {
-    id: string;
-    content: string;
-    updatedAt: string;
-    userId: string;
-    cursorId: number;
-    _count: Count;
-    likes: Like[];
-    retweets: any[];
-    user: User;
-    avatarUrl: string;
-}
 
-interface User {
-    avatarFileName: string;
-    username: string;
-    id: string;
-}
 
-interface Like {
-    id: string;
-}
-
-interface Count {
-    likes: number;
-    retweets: number;
-}
-
-export default function Post({ post }: { post: ResponsePost }) {
+export default function Post({ post }: { post: PostType }) {
     return <Item
         key={post.id}
         className="p-10 bg-slate-50 border border-slate-200 text-slate-900 m-1 min-w-xl max-w-lg flex flex-wrap"

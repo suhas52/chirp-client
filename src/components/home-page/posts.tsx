@@ -8,45 +8,12 @@ import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react";
 import LikeRewteet from "./like-retweet";
 import PostComment from "./post-comments";
-import fetchUser from "@/lib/getUserObject";
 import { api } from "@/lib/axiosApi";
 import { Skeleton } from "../ui/skeleton";
 import { Link, useNavigate } from "react-router";
 import { userQueryOptions } from "@/lib/userQuery";
+import type { PostType } from "@/types/types";
 
-
-interface Page {
-    posts: Post[];
-    nextCursor: number;
-}
-
-interface Post {
-    id: string;
-    content: string;
-    updatedAt: string;
-    userId: string;
-    cursorId: number;
-    _count: Count;
-    likes: Like[];
-    retweets: any[];
-    user: User;
-    avatarUrl: string;
-}
-
-interface User {
-    avatarFileName: string;
-    username: string;
-    id: string;
-}
-
-interface Like {
-    id: string;
-}
-
-interface Count {
-    likes: number;
-    retweets: number;
-}
 
 export default function Posts() {
 
@@ -75,9 +42,6 @@ export default function Posts() {
             return lastPage.nextCursor
         },
     })
-    console.log(data)
-
-
 
     const { ref, inView } = useInView()
 
@@ -112,7 +76,7 @@ export default function Posts() {
     return <ItemGroup>
 
         {data?.pages.map((page) =>
-            page.posts.map((post: Post) => (
+            page.posts.map((post: PostType) => (
                 <Item
                     key={post.id}
                     className="p-10 bg-slate-50 border border-slate-200 text-slate-900 m-1 min-w-xl max-w-lg flex flex-wrap"

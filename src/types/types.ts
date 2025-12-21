@@ -5,4 +5,26 @@ export interface UserObject {
     username: string;
     avatarFileName: string;
     avatarUrl: string;
+    bio: string;
+}
+
+export interface PostType {
+    id: string;
+    content: string;
+    updatedAt: string;
+    userId: string;
+    cursorId: number;
+    _count: {
+        likes: number, retweets: number
+    };
+    likes: {
+        id: string
+    }[];
+    retweets: any[];
+    user: {
+        avatarFileName: string;
+        username: string;
+        id: string;
+    };
+    avatarUrl: string;
 }

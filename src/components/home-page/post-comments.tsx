@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query"
 import { userQueryOptions } from "@/lib/userQuery"
 
 
+
 const commentSchema = z.object({
     content: z.string().min(5, "Comment must be atleast 5 letters long")
         .max(255, "Your comment cannot be more than 255 letters long")
@@ -25,14 +26,14 @@ const commentSchema = z.object({
 type CommentField = z.infer<typeof commentSchema>
 
 export default function PostComment({ postId }: { postId: string }) {
-    const { register, setError, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm<CommentField>({
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm<CommentField>({
         resolver: zodResolver(commentSchema)
     })
 
     const onSubmit = async (commentData: CommentField) => {
         try {
             const response = await api.post(`/user/comment/${postId}`, commentData)
-
+            console.log(response.data)
 
         } catch (err) {
 
@@ -43,11 +44,10 @@ export default function PostComment({ postId }: { postId: string }) {
 
     return <div>
         <Dialog>
-
             <DialogTrigger asChild>
                 <Button disabled={!user.data}>Comment</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]" aria-describedby="post comment">
+            <DialogContent className="sm:max-w-106.25" aria-describedby="post comment">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <DialogHeader>
                         <DialogTitle>Post comment</DialogTitle>
@@ -61,7 +61,6 @@ export default function PostComment({ postId }: { postId: string }) {
                             <Button disabled={isSubmitSuccessful} type="submit">Submit</Button>
                         </DialogFooter>
                     </div>
-
                 </form>
             </DialogContent>
 
