@@ -5,7 +5,6 @@ import App from './App.tsx'
 import './lib/env.ts'
 import { BrowserRouter } from 'react-router'
 import {
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'

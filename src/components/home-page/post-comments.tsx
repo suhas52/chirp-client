@@ -19,14 +19,14 @@ import { userQueryOptions } from "@/lib/userQuery"
 
 
 const commentSchema = z.object({
-    content: z.string().min(5, "Comment must be atleast 5 letters long")
+    content: z.string().min(3, "Comment must be atleast 3 letters long")
         .max(255, "Your comment cannot be more than 255 letters long")
 })
 
 type CommentField = z.infer<typeof commentSchema>
 
 export default function PostComment({ postId }: { postId: string }) {
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm<CommentField>({
+    const { register, handleSubmit, setError, formState: { errors, isSubmitSuccessful } } = useForm<CommentField>({
         resolver: zodResolver(commentSchema)
     })
 
@@ -35,8 +35,11 @@ export default function PostComment({ postId }: { postId: string }) {
             const response = await api.post(`/user/comment/${postId}`, commentData)
             console.log(response.data)
 
-        } catch (err) {
-
+        } catch (err: any) {
+            setError("content", {
+                type: "server",
+                message: err.response.data.message
+            })
         }
     }
     const user = useQuery(userQueryOptions)
@@ -53,7 +56,8 @@ export default function PostComment({ postId }: { postId: string }) {
                         <DialogTitle>Post comment</DialogTitle>
                     </DialogHeader>
                     <div className="grid gap-4 my-5">
-                        {isSubmitSuccessful ? <p>Comment successfully posted</p> : <Textarea {...register("content")} />}
+                        {isSubmitSuccessful && !errors.content ? <p>Comment successfully posted</p> : <Textarea {...register("content")} />}
+                        <p className={errors.content ? "visible text-red-700" : "invisible"}>{errors.content?.message}</p>
                         <DialogFooter className="mt-5">
                             <DialogClose asChild>
                                 <Button variant="outline">Cancel</Button>

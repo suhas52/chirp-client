@@ -22,8 +22,8 @@ import { useNavigate } from "react-router"
 import { api } from "@/lib/axiosApi"
 
 const loginSchema = z.object({
-  username: z.string().min(3, "Username must have atleast 3 characters").max(12, "Username cannot exceed 12 letters"),
-  password: z.string().min(3, "Password must have atleast 3 characters").max(12, "Password cannot exceed 12 letters")
+  username: z.string().min(3, "Username must have atleast 3 characters").max(15, "Username cannot exceed 15 letters"),
+  password: z.string().min(3, "Password must have atleast 3 characters").max(64, "Password cannot exceed 64 letters")
 })
 
 type LoginFormFields = z.infer<typeof loginSchema>
@@ -43,11 +43,13 @@ export function LoginForm({
       const response = await api.post(`/auth/login`, loginData)
       navigate('/home')
 
-    } catch (error: any) {
-      console.log(error.response.data)
+    } catch (err: any) {
+      setError("root", {
+        type: "server",
+        message: err.response.data.message
+      })
     }
   }
-
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>

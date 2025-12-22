@@ -1,4 +1,4 @@
-import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from "../ui/item";
+import { Item, ItemActions, ItemContent, ItemGroup } from "../ui/item";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -71,7 +71,7 @@ export default function Posts() {
             </div>
         );
     }
-    console.log(data)
+
 
     return <ItemGroup>
 
