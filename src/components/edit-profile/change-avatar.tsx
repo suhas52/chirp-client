@@ -24,7 +24,7 @@ interface ResponseUserObject {
 }
 
 export default function ChangeAvatar({ user }: { user: ResponseUserObject }) {
-    console.log(user)
+
     const queryClient = useQueryClient();
 
     const { register, setError, formState: { errors }, handleSubmit } = useForm<FileUpload>()
