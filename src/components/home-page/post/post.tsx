@@ -21,6 +21,11 @@ export default function Post({ post }: { post: PostType }) {
                 </Avatar>
                 <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
             </div>
+            {post.postImageUrl && (
+                <div className="flex justify-center p-5 ">
+                    <img src={post.postImageUrl} />
+                </div>
+            )}
             <p className="min-h-20 my-5 wrap-break-word whitespace-pre-wrap p-1 rounded-2xl">{post.content}</p>
         </ItemContent>
         <Separator />

@@ -27,4 +27,5 @@ export interface PostType {
         id: string;
     };
     avatarUrl: string;
+    postImageUrl?: string;
 }

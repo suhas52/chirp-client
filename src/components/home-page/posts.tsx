@@ -72,7 +72,7 @@ export default function Posts() {
         );
     }
 
-
+    console.log(data)
     return <ItemGroup>
 
         {data?.pages.map((page) =>
@@ -89,6 +89,11 @@ export default function Posts() {
                             </Avatar>
                             <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
                         </div>
+                        {post.postImageUrl && (
+                            <div className="flex justify-center p-5 ">
+                                <img src={post.postImageUrl} />
+                            </div>
+                        )}
                         <p className=" my-5 wrap-break-word whitespace-pre-wrap p-1 rounded-2xl">{post.content}</p>
                     </ItemContent>
                     <Separator />
