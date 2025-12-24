@@ -16,6 +16,7 @@ interface Page {
 
 
 export default function LikeRewteet({ post }: { post: PostType }) {
+    console.log(post)
     const queryClient = useQueryClient()
     type InteractionKey = 'likes' | 'retweets';
     const updatePostInteractionCache = (

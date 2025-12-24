@@ -5,19 +5,41 @@ import { Button } from "./ui/button";
 export default function LandingPage() {
     const navigate = useNavigate();
 
-    return <div className="min-h-full flex flex-1 flex-col justify-center items-center">
-        <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-            Welcome to Chirp
-        </h1>
-        <div className="pt-15 flex flex-col gap-5">
-            <div className="flex gap-5">
-                <Button onClick={() => navigate('/register')}>Register</Button>
-                <Button onClick={() => navigate('/login')}>Login</Button>
-            </div>
-            <div className="flex flex-col">
-                <p>Wanna see the posts?</p>
-                <Button onClick={() => navigate('/home')}>Home</Button>
+    return (<div className="flex flex-1 justify-center items-center bg-slate-100">
+        <div className="flex  items-center justify-center bg-slate-50 p-50 rounded-2xl">
+            <div className="flex max-w-md flex-col items-center text-center gap-8 px-4">
+                <div className="flex flex-col gap-3">
+                    <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+                        Chirp
+                    </h1>
+                    <p className="text-slate-600">
+                        A simple place to share thoughts, images, and ideas.
+                    </p>
+                </div>
+                <div className="flex w-full flex-col gap-3">
+                    <Button
+                        size="lg"
+                        onClick={() => navigate("/register")}
+                    >
+                        Create account
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        onClick={() => navigate("/login")}
+                    >
+                        Sign in
+                    </Button>
+                </div>
+                <button
+                    onClick={() => navigate("/home")}
+                    className="text-sm text-slate-500 hover:text-slate-800 transition"
+
+                >
+                    Or continue as a guest
+                </button>
             </div>
         </div>
     </div>
+    );
 }

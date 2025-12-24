@@ -31,11 +31,12 @@ export default function IndividualPost() {
     console.log(post.data)
     if (!post.isFetched) return <p>Loading</p>
 
-    return <div className="flex flex-col items-center">
+    return <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-6">
         <div className="flex justify-center">
             <Post post={post.data} />
 
         </div>
+        Comments
         <Comments postId={id} />
     </div>
 }

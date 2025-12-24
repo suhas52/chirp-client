@@ -38,7 +38,6 @@ export default function Posts() {
         initialPageParam: null,
         enabled: user.isFetched,
         getNextPageParam: (lastPage) => {
-
             return lastPage.nextCursor
         },
     })
@@ -58,58 +57,92 @@ export default function Posts() {
         const count = 10;
 
         return (
-            <div className="m-1 min-w-xl max-w-lg flex flex-wrap min-h-20">
+            <ItemGroup className="flex flex-col items-center gap-4">
                 {Array.from({ length: count }).map((_, index) => (
-                    <div key={index} className="flex flex-col space-y-3">
-                        <Skeleton className="h-31.25 w-62.5 rounded-xl" />
-                        <div className="space-y-2">
-                            <Skeleton className="h-4 w-62.5" />
-                            <Skeleton className="h-4 w-50" />
+                    <div key={index} className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <div className="flex items-center gap-3">
+                            <Skeleton className="h-10 w-10 rounded-full" />
+                            <Skeleton className="h-4 w-32" />
+                        </div>
+                        <Skeleton className="mt-4 h-48 w-full rounded-lg" />
+                        <div className="mt-4 space-y-2">
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-5/6" />
+                            <Skeleton className="h-4 w-2/3" />
+                        </div>
+                        <div className="mt-6 flex items-center justify-between">
+                            <Skeleton className="h-4 w-24" />
+                            <Skeleton className="h-8 w-20 rounded-md" />
                         </div>
                     </div>
                 ))}
-            </div>
+            </ItemGroup>
         );
     }
 
-    console.log(data)
-    return <ItemGroup>
 
-        {data?.pages.map((page) =>
-            page.posts.map((post: PostType) => (
-                <Item
-                    key={post.id}
-                    className="p-10 bg-slate-50 border border-slate-200 text-slate-900 m-1 min-w-xl max-w-lg flex flex-wrap"
-                >
-                    <ItemContent className="w-full">
-                        <div className="flex gap-2 items-center">
-                            <Avatar>
-                                <AvatarImage src={post.avatarUrl} />
-                                <AvatarFallback>CN</AvatarFallback>
-                            </Avatar>
-                            <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
-                        </div>
-                        {post.postImageUrl && (
-                            <div className="flex justify-center p-5 ">
-                                <img src={post.postImageUrl} />
+    return (
+        <ItemGroup className="flex flex-col items-center gap-4">
+            {data?.pages.map((page) =>
+                page.posts.map((post: PostType) => (
+                    <Item key={post.id} className="w-full max-w-lg rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <ItemContent className="p-4">
+                            <div className="flex items-center gap-3">
+                                <Avatar className="h-10 w-10">
+                                    <AvatarImage src={post.avatarUrl} />
+                                    <AvatarFallback>
+                                        {post.user.username.slice(0, 2).toUpperCase()}
+                                    </AvatarFallback>
+                                </Avatar>
+                                <Link
+                                    to={`/profile/${post.user.id}`}
+                                    className="font-medium text-slate-900 hover:underline">
+                                    {post.user.username}
+                                </Link>
                             </div>
-                        )}
-                        <p className=" my-5 wrap-break-word whitespace-pre-wrap p-1 rounded-2xl">{post.content}</p>
-                    </ItemContent>
-                    <Separator />
-                    <ItemActions className="flex w-full justify-between">
-                        <LikeRewteet post={post} />
-                        <div className="flex gap-5">
-                            <PostComment postId={post.id} />
-                            <Button onClick={() => navigate(`/post/${post.id}`)}>View post</Button>
-                        </div>
-                    </ItemActions>
-                </Item>
-            ))
-        )}
-        <Button ref={ref} className="w-15 self-center" disabled={!hasNextPage} onClick={() => fetchNextPage()}>{hasNextPage ? "Next" : "End"}</Button>
-        <Separator orientation="horizontal" />
-        {isFetchingNextPage && <Spinner className="self-center size-8" />}
-        <p className="text-red-500 text-center" hidden={hasNextPage}>No more posts</p>
-    </ItemGroup>
+
+
+                            {post.postImageUrl && (
+                                <div className="mt-4 overflow-hidden rounded-lg border">
+                                    <img
+                                        src={post.postImageUrl}
+                                        alt=""
+                                        className="w-full object-cover"
+                                    />
+                                </div>
+                            )}
+
+
+                            <p className="mt-4 text-slate-800 whitespace-pre-wrap break-words">
+                                {post.content}
+                            </p>
+                        </ItemContent>
+                        <Separator />
+                        <ItemActions className="flex flex-1 items-center justify-between px-4 py-3">
+                            <LikeRewteet post={post} />
+                            <div className="flex items-center gap-3">
+                                <PostComment postId={post.id} />
+                                <Button variant="outline" size="sm" onClick={() => navigate(`/post/${post.id}`)}>
+                                    View post
+                                </Button>
+                            </div>
+                        </ItemActions>
+                    </Item>
+                ))
+            )}
+            <Button ref={ref} className="mt-4" disabled={!hasNextPage} onClick={() => fetchNextPage()}>
+                {hasNextPage ? "Load more" : "End"}
+            </Button>
+
+            {isFetchingNextPage && (
+                <Spinner className="mt-2 size-8" />
+            )}
+
+            {!hasNextPage && (
+                <p className="mt-2 text-sm text-slate-500">
+                    No more posts
+                </p>
+            )}
+        </ItemGroup>
+    );
 }

@@ -9,30 +9,44 @@ import type { PostType } from "@/types/types";
 
 
 export default function Post({ post }: { post: PostType }) {
-    return <Item
-        key={post.id}
-        className="p-10 bg-slate-50 border border-slate-200 text-slate-900 m-1 min-w-xl max-w-lg flex flex-wrap"
-    >
-        <ItemContent className="w-full">
-            <div className="flex gap-2 items-center">
-                <Avatar>
+    return <Item key={post.id} className="w-full min-w-lg max-w-lg rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+        <ItemContent className="p-4">
+            <div className="flex items-center gap-3">
+                <Avatar className="h-10 w-10">
                     <AvatarImage src={post.avatarUrl} />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                        {post.user.username.slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
                 </Avatar>
-                <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
+                <Link
+                    to={`/profile/${post.user.id}`}
+                    className="font-medium text-slate-900 hover:underline">
+                    {post.user.username}
+                </Link>
             </div>
+
+
             {post.postImageUrl && (
-                <div className="flex justify-center p-5 ">
-                    <img src={post.postImageUrl} />
+                <div className="mt-4 overflow-hidden rounded-lg border">
+                    <img
+                        src={post.postImageUrl}
+                        alt=""
+                        className="w-full object-cover"
+                    />
                 </div>
             )}
-            <p className="min-h-20 my-5 wrap-break-word whitespace-pre-wrap p-1 rounded-2xl">{post.content}</p>
+
+
+            <p className="mt-4 text-slate-800 whitespace-pre-wrap break-words">
+                {post.content}
+            </p>
         </ItemContent>
         <Separator />
-        <ItemActions className="flex w-full justify-between">
+        <ItemActions className="flex flex-1 items-center justify-between px-4 py-3">
             <LikeRewteet post={post} />
-            <div className="flex gap-5">
+            <div className="flex items-center gap-3">
                 <PostComment postId={post.id} />
+
             </div>
         </ItemActions>
     </Item>

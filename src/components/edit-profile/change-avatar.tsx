@@ -45,20 +45,35 @@ export default function ChangeAvatar({ user }: { user: ResponseUserObject }) {
     }
 
 
-    return <div className="max-w-lg border p-5 rounded-2xl shadow">
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-2">
-                Current avatar:
-                <Avatar className="w-50 h-50">
-                    <AvatarImage src={user.avatarUrl}></AvatarImage>
-                </Avatar>
-            </div>
-            <div className="flex flex-col gap-5 mt-5">
-                <Label>Upload new avatar</Label>
-                <Input type="file" {...register('avatar')} />
-                <FieldError className={errors?.avatar?.message ? 'visible' : 'invisible'}>{errors?.avatar?.message ?? 'placeholder'}</FieldError>
-                <Button>Submit</Button>
-            </div>
-        </form>
-    </div>
+    return (
+        <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+                {/* Current Avatar */}
+                <div className="flex flex-col items-center gap-3">
+                    <p className="text-sm font-medium text-slate-600">
+                        Current avatar
+                    </p>
+
+                    <Avatar className="h-40 w-40 border">
+                        <AvatarImage src={user.avatarUrl} />
+                    </Avatar>
+                </div>
+
+                {/* Upload */}
+                <div className="space-y-2">
+                    <Label>Upload new avatar</Label>
+                    <Input type="file" {...register("avatar")} />
+                    <FieldError
+                        className={errors?.avatar?.message ? "visible" : "invisible"}
+                    >
+                        {errors?.avatar?.message ?? "placeholder"}
+                    </FieldError>
+                </div>
+
+                <Button className="w-full">Save avatar</Button>
+            </form>
+        </div>
+    );
+
 }

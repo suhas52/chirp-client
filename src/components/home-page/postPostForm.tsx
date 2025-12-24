@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axiosApi";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { userQueryOptions } from "@/lib/userQuery";
+import { Input } from "../ui/input";
 
 const postSchema = z.object({
     content: z.string().min(3, "Post cannot be less than 3 letter long").max(255, "Post cannot be more than 255 letters long"),
@@ -46,15 +47,60 @@ export default function PostForm() {
 
     console.log(errors)
 
-    return <form className="min-w-lg bg-accent flex flex-col items-center border px-10 py-2 mt-2 rounded-2xl shadow-2xs" onSubmit={handleSubmit(onSubmit)}>
-        <Label className="self-start">Post:</Label>
-        <Textarea {...register("content")} className="m-5 bg-white"></Textarea>
-        <p hidden={!errors.content} className="text-sm text-red-700">{errors.content?.message}</p>
-        <div className="flex items-center justify-around">
+    return (
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="
+            w-full
+            rounded-xl
+            border border-slate-200
+            bg-white
+            p-4
+            shadow-sm
+            flex flex-col
+            gap-3
+        "
+        >
 
-            <input type="file" {...register("file")} />
+            <Label className="text-sm font-medium text-slate-700">
+                Create post
+            </Label>
 
-            <Button disabled={!user.data} type="submit" size={"lg"} className="m-2">{isSubmitting ? "Submitting" : "Submit"}</Button>
-        </div>
-    </form>
+
+            <Textarea
+                {...register("content")}
+                placeholder="What’s on your mind?"
+                className="
+                min-h-[100px]
+                resize-none
+                border-slate-200
+                focus-visible:ring-1
+                focus-visible:ring-slate-400
+            "
+            />
+
+            {errors.content && (
+                <p className="text-xs text-red-600">
+                    {errors.content.message}
+                </p>
+            )}
+
+
+            <div className="flex items-center justify-between pt-2">
+                <Input
+                    type="file"
+                    {...register("file")}
+                    className="max-w-xs text-sm"
+                />
+
+                <Button
+                    type="submit"
+                    size="sm"
+                    disabled={!user.data || isSubmitting}
+                >
+                    {isSubmitting ? "Posting…" : "Post"}
+                </Button>
+            </div>
+        </form>
+    );
 }

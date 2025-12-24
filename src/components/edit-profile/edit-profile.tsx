@@ -9,8 +9,10 @@ export default function Profile() {
     if (!user.isFetched) return <p>Loading</p>
     if (!user.data) return <Navigate to={"/home"} />
 
-    return <div className="min-w-full p-10 flex flex-1 gap-10 items-center justify-center">
-        <ChangeAvatar user={user.data} />
-        <ChangeUserDetailsForm user={user.data} />
-    </div>
+    return (
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-10 md:flex-row md:items-start md:justify-center">
+            <ChangeAvatar user={user.data} />
+            <ChangeUserDetailsForm user={user.data} />
+        </div>
+    );
 }

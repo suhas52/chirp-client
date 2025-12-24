@@ -22,8 +22,10 @@ export default function OtherProfile() {
 
     if (!userQuery.data) return <p>Error</p>
 
-    return <div className="flex flex-col flex-1 items-center">
-        <UserDetails user={userQuery.data} />
-        <UserPosts user={userQuery.data} />
-    </div>
+    return (
+        <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-6">
+            <UserDetails user={userQuery.data} />
+            <UserPosts user={userQuery.data} />
+        </div>
+    );
 }
