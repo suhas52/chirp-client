@@ -18,7 +18,7 @@ type PostType = z.infer<typeof postSchema>
 
 export default function PostForm() {
 
-    const { register, reset, setError, handleSubmit, formState: { errors, isSubmitting } } = useForm<PostType>({
+    const { register, reset, handleSubmit, formState: { errors, isSubmitting } } = useForm<PostType>({
         resolver: zodResolver(postSchema)
     })
 
@@ -45,62 +45,24 @@ export default function PostForm() {
         }
     }
 
-    console.log(errors)
-
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="
-            w-full
-            rounded-xl
-            border border-slate-200
-            bg-white
-            p-4
-            shadow-sm
-            flex flex-col
-            gap-3
-        "
-        >
-
-            <Label className="text-sm font-medium text-slate-700">
-                Create post
-            </Label>
-
-
-            <Textarea
-                {...register("content")}
-                placeholder="What’s on your mind?"
-                className="
-                min-h-[100px]
-                resize-none
-                border-slate-200
-                focus-visible:ring-1
-                focus-visible:ring-slate-400
-            "
+        <form onSubmit={handleSubmit(onSubmit)}
+            className="w-full rounded-xl border border-border bg-card p-4 shadow-sm flex flex-col gap-3">
+            <Label className="text-sm font-medium text-foreground">Create post</Label>
+            <Textarea {...register("content")} placeholder="What's on your mind?"
+                className="min-h-25 resize-none border-border bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
             />
 
             {errors.content && (
-                <p className="text-xs text-red-600">
-                    {errors.content.message}
-                </p>
+                <p className="text-xs text-destructive">{errors.content.message}</p>
             )}
-
-
             <div className="flex items-center justify-between pt-2">
-                <Input
-                    type="file"
-                    {...register("file")}
-                    className="max-w-xs text-sm"
-                />
-
-                <Button
-                    type="submit"
-                    size="sm"
-                    disabled={!user.data || isSubmitting}
-                >
+                <Input type="file" {...register("file")} className="max-w-xs text-sm text-foreground file:text-foreground" />
+                <Button type="submit" size="sm" disabled={!user.data || isSubmitting}>
                     {isSubmitting ? "Posting…" : "Post"}
                 </Button>
             </div>
         </form>
     );
+
 }

@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router";
 
-
 interface Page {
     comments: Comment[];
     nextCursor: null;
@@ -27,8 +26,6 @@ interface Comment {
     };
     avatarUrl: string;
 }
-
-
 
 export default function Comments({ postId }: { postId: string }) {
 
@@ -63,61 +60,42 @@ export default function Comments({ postId }: { postId: string }) {
     }, [inView, fetchNextPage, hasNextPage])
 
     if (!isFetched) return <h1>Loading</h1>
-    console.log(comments)
+
     return (
         <ItemGroup className="w-full max-w-lg space-y-4">
-
             {comments?.pages.map((page: Page) =>
                 page.comments.map((comment: Comment) => (
                     <Item
                         key={comment.id}
-                        className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
-                    >
+                        className="rounded-xl border border-border bg-card text-card-foreground p-4 shadow-sm">
                         <ItemContent className="space-y-3">
-
-                            {/* Header */}
                             <div className="flex items-center gap-3">
                                 <Avatar className="h-8 w-8">
                                     <AvatarImage src={comment.avatarUrl} />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
 
-                                <Link
-                                    to={`/profile/${comment.user.id}`}
-                                    className="text-sm font-medium text-slate-900 hover:underline"
-                                >
+                                <Link to={`/profile/${comment.user.id}`} className="text-sm font-medium text-foreground hover:underline">
                                     {comment.user.username}
                                 </Link>
                             </div>
 
-                            {/* Content */}
-                            <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-900 whitespace-pre-wrap break-words">
+                            <p className=" rounded-lg bg-muted px-3 py-2 text-sm text-foreground whitespace-pre-wrap wrap-break-word">
                                 {comment.content}
                             </p>
                         </ItemContent>
                     </Item>
                 ))
             )}
-
-            {/* Pagination */}
             <div className="flex flex-col items-center gap-3 pt-2">
-                <Button
-                    ref={ref}
-                    size="sm"
-                    disabled={!hasNextPage}
-                    onClick={() => fetchNextPage()}
-                >
+                <Button ref={ref} size="sm" disabled={!hasNextPage} onClick={() => fetchNextPage()}>
                     {hasNextPage ? "Load more" : "No more comments"}
                 </Button>
-
                 {isFetchingNextPage && (
                     <Spinner className="h-6 w-6" />
                 )}
             </div>
-
-            {!hasNextPage && (
-                <Separator orientation="horizontal" />
-            )}
-        </ItemGroup>
+            {!hasNextPage && <Separator orientation="horizontal" />}
+        </ItemGroup >
     );
 }

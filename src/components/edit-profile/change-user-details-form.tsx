@@ -46,9 +46,7 @@ export default function ChangeUserDetailsForm({ user }: { user: UserObject }) {
     <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle>Details</CardTitle>
-        <CardDescription>
-          Change your account details
-        </CardDescription>
+        <CardDescription>Change your account details</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

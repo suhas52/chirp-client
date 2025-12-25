@@ -26,9 +26,7 @@ interface ResponseUserObject {
 export default function ChangeAvatar({ user }: { user: ResponseUserObject }) {
 
     const queryClient = useQueryClient();
-
     const { register, setError, formState: { errors }, handleSubmit } = useForm<FileUpload>()
-
     const onSubmit = async (data: FileUpload) => {
         const formData = new FormData();
         formData.append("avatar", data.avatar[0]);
@@ -44,36 +42,24 @@ export default function ChangeAvatar({ user }: { user: ResponseUserObject }) {
         }
     }
 
-
     return (
-        <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-sm">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
-                {/* Current Avatar */}
                 <div className="flex flex-col items-center gap-3">
-                    <p className="text-sm font-medium text-slate-600">
-                        Current avatar
-                    </p>
-
-                    <Avatar className="h-40 w-40 border">
+                    <p className="text-sm font-medium text-muted-foreground">Current avatar</p>
+                    <Avatar className="h-40 w-40 border border-border">
                         <AvatarImage src={user.avatarUrl} />
                     </Avatar>
                 </div>
-
-                {/* Upload */}
                 <div className="space-y-2">
-                    <Label>Upload new avatar</Label>
-                    <Input type="file" {...register("avatar")} />
-                    <FieldError
-                        className={errors?.avatar?.message ? "visible" : "invisible"}
-                    >
+                    <Label className="text-foreground">Upload new avatar</Label>
+                    <Input type="file" {...register("avatar")} className="text-foreground file:text-foreground" />
+                    <FieldError className={errors?.avatar?.message ? "visible" : "invisible"}>
                         {errors?.avatar?.message ?? "placeholder"}
                     </FieldError>
                 </div>
-
                 <Button className="w-full">Save avatar</Button>
             </form>
         </div>
     );
-
 }

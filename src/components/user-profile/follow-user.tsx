@@ -16,8 +16,7 @@ export default function FollowUser({ user }: { user: UserObject }) {
             console.log(err)
         }
     }
-
-    return <Button disabled={!loggedInUserQuery.isFetched || !loggedInUserQuery.data || user.id === loggedInUserQuery.data.id} size="sm"
+    return <Button disabled={!loggedInUserQuery.isFetched || !loggedInUserQuery.data} size="sm"
         onClick={handleFollowToggle}>
         {user.followers.length === 0 ? "Follow" : "Unfollow"}
     </Button>

@@ -44,10 +44,7 @@ export function LoginForm({
       navigate('/home')
 
     } catch (err: any) {
-      setError("root", {
-        type: "server",
-        message: err.response.data.message
-      })
+      setError("root", { type: "server", message: err.response.data.message })
     }
   }
   return (
@@ -80,7 +77,6 @@ export function LoginForm({
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
-
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <a href="/register">Sign up</a>
                 </FieldDescription>

@@ -43,8 +43,6 @@ export default function AvatarHolder({ user }: { user: { avatarUrl?: string } })
         </div>
     }
 
-
-
     return <div className="px-2">
         <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -62,7 +62,7 @@ export default function UserPosts({ user }: { user: UserObject }) {
     return <ItemGroup className="flex flex-col items-center gap-4">
         {postQuery.data?.pages.map((page: Page) =>
             page.posts.map((post: PostType) => (
-                <Item key={post.id} className="w-full max-w-lg rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+                <Item key={post.id} className=" w-full max-w-lg rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                     <ItemContent className="p-4">
                         <div className="flex items-center gap-3">
                             <Avatar className="h-10 w-10">

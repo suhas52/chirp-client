@@ -28,11 +28,8 @@ export default function Posts() {
         return response.data.data
 
     }
-
     const user = useQuery(userQueryOptions)
-
-
-    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetched } = useInfiniteQuery({
         queryKey: ['posts'],
         queryFn: getPosts,
         initialPageParam: null,
@@ -49,13 +46,11 @@ export default function Posts() {
         if (inView && hasNextPage) {
             fetchNextPage();
         }
-
     }, [inView, fetchNextPage, hasNextPage])
 
 
     if (!isFetched) {
         const count = 10;
-
         return (
             <ItemGroup className="flex flex-col items-center gap-4">
                 {Array.from({ length: count }).map((_, index) => (
@@ -80,12 +75,13 @@ export default function Posts() {
         );
     }
 
-
     return (
         <ItemGroup className="flex flex-col items-center gap-4">
             {data?.pages.map((page) =>
                 page.posts.map((post: PostType) => (
-                    <Item key={post.id} className="w-full max-w-lg rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <Item
+                        key={post.id}
+                        className="w-full max-w-lg rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
                         <ItemContent className="p-4">
                             <div className="flex items-center gap-3">
                                 <Avatar className="h-10 w-10">
@@ -96,24 +92,18 @@ export default function Posts() {
                                 </Avatar>
                                 <Link
                                     to={`/profile/${post.user.id}`}
-                                    className="font-medium text-slate-900 hover:underline">
+                                    className="font-medium text-foreground hover:underline"
+                                >
                                     {post.user.username}
                                 </Link>
                             </div>
-
-
                             {post.postImageUrl && (
-                                <div className="mt-4 overflow-hidden rounded-lg border">
-                                    <img
-                                        src={post.postImageUrl}
-                                        alt=""
-                                        className="w-full object-cover"
-                                    />
+                                <div className="mt-4 overflow-hidden rounded-lg border border-border">
+                                    <img src={post.postImageUrl} alt="" className="w-full object-cover" />
                                 </div>
                             )}
 
-
-                            <p className="mt-4 text-slate-800 whitespace-pre-wrap break-words">
+                            <p className="mt-4 whitespace-pre-wrap warp-break-word text-foreground">
                                 {post.content}
                             </p>
                         </ItemContent>
@@ -130,19 +120,9 @@ export default function Posts() {
                     </Item>
                 ))
             )}
-            <Button ref={ref} className="mt-4" disabled={!hasNextPage} onClick={() => fetchNextPage()}>
-                {hasNextPage ? "Load more" : "End"}
-            </Button>
-
-            {isFetchingNextPage && (
-                <Spinner className="mt-2 size-8" />
-            )}
-
-            {!hasNextPage && (
-                <p className="mt-2 text-sm text-slate-500">
-                    No more posts
-                </p>
-            )}
+            <Button ref={ref} className="mt-4" disabled={!hasNextPage} onClick={() => fetchNextPage()}>{hasNextPage ? "Load more" : "End"}</Button>
+            {isFetchingNextPage && <Spinner className="mt-2 size-8" />}
+            {!hasNextPage && <p className="mt-2 text-sm text-muted-foreground">No more posts</p>}
         </ItemGroup>
-    );
+    )
 }
