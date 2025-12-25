@@ -6,6 +6,16 @@ export interface UserObject {
     avatarFileName: string;
     avatarUrl: string;
     bio: string;
+    _count: {
+        followers: number,
+        following: number
+    },
+    followers: {
+        id: string;
+        followerId: string;
+        followingId: string;
+        createdAt: string;
+    }[]
 }
 
 export interface PostType {

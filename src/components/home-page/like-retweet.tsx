@@ -16,7 +16,7 @@ interface Page {
 
 
 export default function LikeRewteet({ post }: { post: PostType }) {
-    console.log(post)
+
     const queryClient = useQueryClient()
     type InteractionKey = 'likes' | 'retweets';
     const updatePostInteractionCache = (
@@ -28,7 +28,7 @@ export default function LikeRewteet({ post }: { post: PostType }) {
     ) => {
         queryClient.setQueryData(['posts'], (oldData: PostResponse) => {
             if (!oldData) return oldData;
-            console.log(oldData)
+
             return {
                 ...oldData,
                 pages: oldData.pages.map((page: Page) => ({

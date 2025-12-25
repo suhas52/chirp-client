@@ -3,13 +3,14 @@ import UserDetails from "./user-details";
 import UserPosts from "./user-posts";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/axiosApi";
+import { userQueryOptions } from "@/lib/userQuery";
 
 export default function OtherProfile() {
     const { userId } = useParams<{ userId: string }>();
     const id = userId!;
-
+    const loggedInUserQuery = useQuery(userQueryOptions)
     const fetchUser = async (userId: string) => {
-        const response = await api.get(`/auth/user/${userId}`)
+        const response = await api.get(`/auth/user/${userId}?loggedUserId=${loggedInUserQuery.data.id}`)
         return response.data.data
     }
 
@@ -17,6 +18,8 @@ export default function OtherProfile() {
         queryKey: ['user', id],
         queryFn: () => fetchUser(id)
     })
+
+    console.log(userQuery.data)
 
     if (userQuery.isFetching) return <p>Loading</p>
 
