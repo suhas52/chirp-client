@@ -10,5 +10,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  server: {
+	allowedHosts: ['chirp-infra-monorepo-react-1']
+  }
   },
 })
