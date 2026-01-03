@@ -11,7 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   server: {
-	allowedHosts: ['chirp-infra-monorepo-react-1']
+	allowedHosts: true
   }
   },
 })
