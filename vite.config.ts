@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
   allowedHosts: ['chirp-infra-monorepo-react-1']
-  }
+  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
