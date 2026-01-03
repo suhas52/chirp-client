@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-  allowedHosts: ['chirp-infra-monorepo-react-1']
+  allowedHosts: ['react']
   },
   plugins: [react(), tailwindcss()],
   resolve: {
