@@ -2,6 +2,7 @@ import { useForm, } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axiosApi";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
