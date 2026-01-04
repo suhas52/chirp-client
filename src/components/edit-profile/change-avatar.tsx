@@ -31,7 +31,7 @@ export default function ChangeAvatar({ user }: { user: ResponseUserObject }) {
         const formData = new FormData();
         formData.append("avatar", data.avatar[0]);
         try {
-            const response = await api.patch(`/auth/update-avatar`, formData)
+            await api.patch(`/auth/update-avatar`, formData)
             queryClient.invalidateQueries({ queryKey: ['user'] })
         } catch (error: any) {
             console.log(error.response.data)

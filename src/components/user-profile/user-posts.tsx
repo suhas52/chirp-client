@@ -1,5 +1,4 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from "../ui/card";
 import type { PostType, UserObject } from "@/types/types";
 import { api } from "@/lib/axiosApi";
 import { Avatar, AvatarFallback } from "../ui/avatar";

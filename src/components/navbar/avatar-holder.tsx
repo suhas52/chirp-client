@@ -9,7 +9,7 @@ import { api } from "@/lib/axiosApi";
 export default function AvatarHolder({ user }: { user: { avatarUrl?: string } }) {
     const handleLogout = async () => {
         try {
-            const response = await api.post(`/auth/logout`)
+            await api.post(`/auth/logout`)
 
             navigate('/home')
         } catch (error: any) {

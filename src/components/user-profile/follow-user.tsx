@@ -10,7 +10,7 @@ export default function FollowUser({ user }: { user: UserObject }) {
     const queryClient = useQueryClient();
     const handleFollowToggle = async () => {
         try {
-            const response = isNotFollowed ? await api.post(`/user/follow/${user.id}`) : await api.delete(`/user/follow/${user.id}`);
+            isNotFollowed ? await api.post(`/user/follow/${user.id}`) : await api.delete(`/user/follow/${user.id}`);
             queryClient.invalidateQueries({ queryKey: ['user', user.id] })
         } catch (err) {
             console.log(err)

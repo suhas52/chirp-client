@@ -34,14 +34,14 @@ export function SignupForm({
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegisterFieldsType>({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegisterFieldsType>({
     resolver: zodResolver(registerSchema)
   });
 
 
   const onSubmit = async (registerData: RegisterFieldsType) => {
     try {
-      const response = await api.post(`/auth/register`, registerData)
+      await api.post(`/auth/register`, registerData)
       navigate('/login')
 
     } catch (error: any) {

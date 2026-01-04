@@ -40,7 +40,7 @@ export function LoginForm({
 
   const onSubmit = async (loginData: LoginFormFields) => {
     try {
-      const response = await api.post(`/auth/login`, loginData)
+      await api.post(`/auth/login`, loginData)
       navigate('/home')
 
     } catch (err: any) {

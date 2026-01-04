@@ -27,14 +27,14 @@ type UserDetailsForm = z.infer<typeof userDetailsSchema>
 export default function ChangeUserDetailsForm({ user }: { user: UserObject }) {
 
   const queryClient = useQueryClient();
-  const { register, handleSubmit, setError, formState: { errors }, reset } = useForm<UserDetailsForm>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<UserDetailsForm>({
     resolver: zodResolver(userDetailsSchema)
   })
 
 
   const onSubmit = async (formData: UserDetailsForm) => {
     try {
-      const response = await api.patch(`/auth/update-profile`, formData)
+      await api.patch(`/auth/update-profile`, formData)
       queryClient.invalidateQueries({ queryKey: ['user'] })
       reset();
     } catch (error) {
