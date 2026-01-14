@@ -71,28 +71,6 @@ Chirp is a full-stack social media frontend built with React and TypeScript. It 
 
 ---
 
-## Project Structure
-
-src/
-├── app.tsx # Application routes
-├── main.tsx # App bootstrap and providers
-├── lib/
-│ ├── axiosApi.ts # Axios instance
-│ ├── env.ts # Environment validation
-│ ├── getUserObject.ts # Current user fetcher
-│ ├── theme.ts # Theme utilities
-│ ├── userQuery.ts # Shared user query config
-│ └── utils.ts # Utility helpers
-├── types.ts # Shared TypeScript interfaces
-├── components/
-│ ├── landing-page/
-│ ├── edit-profile/
-│ ├── home-page/
-│ ├── navbar/
-│ └── user-profile/
-
----
-
 ## Routing Overview
 
 | Route | Description |
