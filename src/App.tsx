@@ -9,6 +9,7 @@ import Profile from './components/edit-profile/edit-profile'
 import LandingPage from './components/landing-page'
 import Navbar from './components/navbar/navbar'
 import OtherProfile from './components/user-profile/user-profile'
+import About from './components/about/about'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/post/:postId' element={<IndividualPost />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/:userId' element={<OtherProfile />} />
+	  <Route path='/about' element={<About />} />
         </Routes>
       </div>
     </>
