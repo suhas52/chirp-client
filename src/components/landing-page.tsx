@@ -38,8 +38,8 @@ export default function LandingPage() {
                         <Button size="lg" onClick={() => navigate("/register")}>Create account</Button>
                         <Button variant="outline" size="lg" onClick={() => navigate("/login")}>Sign in</Button>
                     </div>
-                        Or continue as a guest
                     <button onClick={() => navigate("/home")} className="text-sm text-muted-foreground transition hover:text-foreground">
+                        Or continue as a guest
                     </button>
                 </div>
             </div>
